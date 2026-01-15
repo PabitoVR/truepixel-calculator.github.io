@@ -320,7 +320,7 @@
                 <li>Ultrawide 1440p to <strong>prawie 5 milionów pikseli</strong>.</li>
             </ul>
             <p>To <strong>35% różnicy</strong> w wydajności. Karta, która śmiga w pierwszym przypadku, w drugim zaczyna się dławić. A my wciąż używamy nazw z epoki telewizorów kineskopowych: FHD, QHD, UHD. Te nazwy są mylące. Są przestarzałe. I przede wszystkim – są nieuczciwe wobec graczy.</p>
-            <h3>Dlatego stworzyłem TruePixel (Standard MP).</h3>
+            <h3>Dlatego stworzyłam TruePixel (Standard MP).</h3>
             <p>To prosta idea: <strong>Piksel to piksel.</strong> Twój komputer nie widzi "szerokiego ekranu". Widzi macierz punktów do pokolorowania 60 razy na sekundę.</p>
             <p>Zamiast zgadywać, czy Twój RTX pociągnie nowy monitor, patrzysz na <strong>Klasę MP</strong>:</p>
             <ul class="list-none pl-0 space-y-2 my-4">
@@ -468,68 +468,63 @@
             const fabText = document.getElementById('navFabText');
             const fabIcon = document.getElementById('navFabIcon');
             const fade = document.getElementById('bottomFade');
+            
             const t = translations[currentLang];
             const scrollY = window.scrollY;
-            const threshold = 300;
+            const threshold = 100; // Lower threshold to ensure switch happens sooner
             
-            // --- GRADIENT FADE LOGIC ---
+            // --- GRADIENT FADE LOGIC (MORE AGGRESSIVE) ---
             const distToBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
-            if (distToBottom < 200) {
-                const opacity = Math.max(0, distToBottom / 200);
-                fade.style.opacity = opacity;
+            
+            if (distToBottom < 50) {
+                fade.style.opacity = '0';
+            } else if (distToBottom < 300) {
+                const opacity = (distToBottom - 50) / 250;
+                fade.style.opacity = opacity.toFixed(2);
             } else {
                 fade.style.opacity = '1';
             }
             
-            // Check if we need to switch to TOP (scrolled down)
-            if (scrollY > threshold && !isFabAtTop && !isTransitioning) {
-                isTransitioning = true;
-                
-                // 1. Fade Out
-                fab.classList.add('opacity-0', 'scale-75');
-                
-                // 2. Wait for fade out, then swap properties
-                setTimeout(() => {
-                    isFabAtTop = true;
-                    fab.classList.remove('bottom-8');
-                    fab.classList.add('top-24'); // Position below navbar
-                    
-                    fabText.innerText = t.navBack;
-                    fabIcon.className = "fa-solid fa-arrow-up text-lg";
-                    
-                    fab.onclick = () => {
-                        fab.classList.add('opacity-0');
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    };
-                    
-                    // 3. Fade In
-                    fab.classList.remove('opacity-0', 'scale-75');
-                    isTransitioning = false;
-                }, 300); // Matches CSS duration
-            } 
-            // Check if we need to switch to BOTTOM (scrolled up)
-            else if (scrollY <= threshold && isFabAtTop && !isTransitioning) {
-                isTransitioning = true;
-                
-                // 1. Fade Out
-                fab.classList.add('opacity-0', 'scale-75');
-                
-                // 2. Wait for fade out, then swap properties
-                setTimeout(() => {
-                    isFabAtTop = false;
-                    fab.classList.remove('top-24');
-                    fab.classList.add('bottom-8');
-                    
-                    fabText.innerText = t.navAsk;
-                    fabIcon.className = "fa-solid fa-arrow-down text-lg";
-                    
-                    fab.onclick = () => {
-                        fab.classList.add('opacity-0');
-                        const aiSection = document.getElementById('aiSection');
-                        aiSection.scrollIntoView({ behavior: 'smooth' });
-                    };
+            // Determine desired state based on scroll
+            const shouldBeAtTop = scrollY > threshold;
 
-                    // 3. Fade In
+            // Only act if the desired state is different from current tracking state
+            if (shouldBeAtTop !== isFabAtTop) {
+                if (isTransitioning) return; 
+                
+                isTransitioning = true;
+                isFabAtTop = shouldBeAtTop; 
+
+                // 1. Hide
+                fab.classList.add('opacity-0', 'scale-75');
+
+                // 2. Wait for hide, then Swap
+                setTimeout(() => {
+                    if (isFabAtTop) {
+                        // Switch to TOP (Back)
+                        fab.classList.remove('bottom-8');
+                        fab.classList.add('top-24');
+                        fabText.innerText = t.navBack;
+                        fabIcon.className = "fa-solid fa-arrow-up text-lg";
+                        fab.onclick = () => {
+                            // On click: hide, scroll up, wait for logic to restore visibility
+                            fab.classList.add('opacity-0');
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        };
+                    } else {
+                        // Switch to BOTTOM (Ask)
+                        fab.classList.remove('top-24');
+                        fab.classList.add('bottom-8');
+                        fabText.innerText = t.navAsk;
+                        fabIcon.className = "fa-solid fa-arrow-down text-lg";
+                        fab.onclick = () => {
+                            // On click: hide, scroll down, wait for logic to restore visibility
+                            fab.classList.add('opacity-0');
+                            document.getElementById('aiSection').scrollIntoView({ behavior: 'smooth' });
+                        };
+                    }
+                    
+                    // 3. Show
                     fab.classList.remove('opacity-0', 'scale-75');
                     isTransitioning = false;
                 }, 300);
@@ -586,13 +581,13 @@
             updateLanguageUI();
             initPresetButtons();
             
-            // Initial onclick for FAB
+            // Fix: Ensure FAB onclick is set initially
             const fab = document.getElementById('navFab');
             fab.onclick = () => {
                 fab.classList.add('opacity-0');
                 const aiSection = document.getElementById('aiSection');
                 aiSection.scrollIntoView({ behavior: 'smooth' });
-                setTimeout(() => fab.classList.remove('opacity-0'), 800);
+                // The scroll listener will handle showing it again as we cross the threshold
             };
             
             setTimeout(() => calculateMP(), 50);
