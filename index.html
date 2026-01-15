@@ -320,7 +320,7 @@
                 <li>Ultrawide 1440p to <strong>prawie 5 milionów pikseli</strong>.</li>
             </ul>
             <p>To <strong>35% różnicy</strong> w wydajności. Karta, która śmiga w pierwszym przypadku, w drugim zaczyna się dławić. A my wciąż używamy nazw z epoki telewizorów kineskopowych: FHD, QHD, UHD. Te nazwy są mylące. Są przestarzałe. I przede wszystkim – są nieuczciwe wobec graczy.</p>
-            <h3>Dlatego stworzyłam TruePixel (Standard MP).</h3>
+            <h3>Dlatego stworzyłem TruePixel (Standard MP).</h3>
             <p>To prosta idea: <strong>Piksel to piksel.</strong> Twój komputer nie widzi "szerokiego ekranu". Widzi macierz punktów do pokolorowania 60 razy na sekundę.</p>
             <p>Zamiast zgadywać, czy Twój RTX pociągnie nowy monitor, patrzysz na <strong>Klasę MP</strong>:</p>
             <ul class="list-none pl-0 space-y-2 my-4">
@@ -462,28 +462,24 @@
         // --- NAVIGATION LOGIC ---
         
         window.addEventListener('scroll', () => {
-            // Logic works for any view if page is scrollable
+            if (currentView !== 'calculator') return;
+
             const fab = document.getElementById('navFab');
             const fabText = document.getElementById('navFabText');
             const fabIcon = document.getElementById('navFabIcon');
-            const fade = document.getElementById('bottomFade'); // Get the gradient
-            
+            const fade = document.getElementById('bottomFade');
             const t = translations[currentLang];
             const scrollY = window.scrollY;
             const threshold = 300;
             
             // --- GRADIENT FADE LOGIC ---
-            // Calculate distance to bottom of page
             const distToBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
-            // Start fading out when within 200px of bottom, fully transparent at 0px
             if (distToBottom < 200) {
                 const opacity = Math.max(0, distToBottom / 200);
                 fade.style.opacity = opacity;
             } else {
                 fade.style.opacity = '1';
             }
-
-            if (currentView !== 'calculator') return;
             
             // Check if we need to switch to TOP (scrolled down)
             if (scrollY > threshold && !isFabAtTop && !isTransitioning) {
@@ -504,7 +500,6 @@
                     fab.onclick = () => {
                         fab.classList.add('opacity-0');
                         window.scrollTo({ top: 0, behavior: 'smooth' });
-                        // Opacity restored by scroll logic when we pass threshold back up
                     };
                     
                     // 3. Fade In
@@ -532,7 +527,6 @@
                         fab.classList.add('opacity-0');
                         const aiSection = document.getElementById('aiSection');
                         aiSection.scrollIntoView({ behavior: 'smooth' });
-                        // Opacity restored by scroll logic
                     };
 
                     // 3. Fade In
@@ -592,19 +586,16 @@
             updateLanguageUI();
             initPresetButtons();
             
-            // --- FIX START: Set initial FAB onclick handler ---
+            // Initial onclick for FAB
             const fab = document.getElementById('navFab');
             fab.onclick = () => {
                 fab.classList.add('opacity-0');
                 const aiSection = document.getElementById('aiSection');
                 aiSection.scrollIntoView({ behavior: 'smooth' });
-                // Opacity will be restored by the scroll listener once we scroll past threshold
                 setTimeout(() => fab.classList.remove('opacity-0'), 800);
             };
-            // --- FIX END ---
             
             setTimeout(() => calculateMP(), 50);
-            // Trigger scroll event manually to ensure FAB is in correct state on load (though onclick is now forced above)
             window.dispatchEvent(new Event('scroll'));
             window.addEventListener('resize', updatePresetUIState);
         }
@@ -632,8 +623,7 @@
             updateLanguageUI();
             if (!document.getElementById('resultPanel').classList.contains('hidden')) calculateMP();
             
-            // Trigger scroll event manually to update FAB text immediately if needed
-            // But we also need to manually update text because scroll listener might not trigger if position doesn't change
+            // Update FAB text immediately
             const t = translations[currentLang];
             const fabText = document.getElementById('navFabText');
             if (isFabAtTop) fabText.innerText = t.navBack;
@@ -815,5 +805,4 @@
         init();
     </script>
 </body>
-
 </html>
