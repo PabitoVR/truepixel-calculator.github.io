@@ -319,50 +319,10 @@
 
         // --- MANIFEST CONTENT (PL) ---
         const manifestPL = `
-            <p><strong>Mamy 2026 rok, a my wciąż kłamiemy na temat sprzętu.</strong></p>
-            <p>Kupujesz monitor "1440p". Kupujesz monitor "Ultrawide 1440p". Brzmi podobnie, prawda? Tyle samo w pionie. Ale Twoja karta graficzna widzi coś zupełnie innego.</p>
-            <ul>
-                <li>Zwykłe 1440p to <strong>3.6 miliona pikseli</strong>.</li>
-                <li>Ultrawide 1440p to <strong>prawie 5 milionów pikseli</strong>.</li>
-            </ul>
-            <p>To <strong>35% różnicy</strong> w wydajności. Karta, która śmiga w pierwszym przypadku, w drugim zaczyna się dławić. A my wciąż używamy nazw z epoki telewizorów kineskopowych: FHD, QHD, UHD. Te nazwy są mylące. Są przestarzałe. I przede wszystkim – są nieuczciwe wobec graczy.</p>
-            <h3>Dlatego stworzyłam TruePixel (Standard MP).</h3>
-            <p>To prosta idea: <strong>Piksel to piksel.</strong> Twój komputer nie widzi "szerokiego ekranu". Widzi macierz punktów do pokolorowania 60 razy na sekundę.</p>
-            <p>Zamiast zgadywać, czy Twój RTX pociągnie nowy monitor, patrzysz na <strong>Klasę MP</strong>:</p>
-            <ul class="list-none pl-0 space-y-2 my-4">
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-slate-200 dark:bg-slate-800 rounded text-xs font-bold">Klasa ↓2M</span> <span class="text-sm">Poniżej 1080p. Poziom podstawowy.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-slate-200 dark:bg-slate-800 rounded text-xs font-bold">Klasa 2M</span> <span class="text-sm">1920x1080. Punkt wyjścia.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded text-xs font-bold">Klasa 4M</span> <span class="text-sm">1440p. Nowy standard gamingu.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded text-xs font-bold">Klasa 5M↑</span> <span class="text-sm">Ultrawide. Wysokie wymagania.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-slate-800 dark:bg-white text-white dark:text-black rounded text-xs font-bold">Klasa 8M↑</span> <span class="text-sm">4K UHD. Klasa entuzjasty.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-purple-600 text-white rounded text-xs font-bold">Klasa 33M↑</span> <span class="text-sm">8K/16K. Poza zasięgiem obecnych GPU w AAA.</span></li>
-            </ul>
-            <p><strong>TruePixel to narzędzie, które brutalnie sprowadza marketing do parteru matematyki.</strong> Pokazuje czarno na białym, o ile % trudniej ma Twój komputer. To kalkulator, który nie bierze jeńców.</p>
-            <p class="italic text-sm mt-8 border-l-4 border-primary-500 pl-4 py-1">Bo Twoja karta graficzna zasługuje na to, żebyś wiedział, co jej robisz.</p>
-        `;
+            `;
 
         const manifestEN = `
-            <p><strong>It's 2026, and we're still lying about hardware.</strong></p>
-            <p>You buy a "1440p" monitor. You buy an "Ultrawide 1440p". Sounds similar, right? Vertical count is the same. But your GPU sees something completely different.</p>
-            <ul>
-                <li>Standard 1440p is <strong>3.6 million pixels</strong>.</li>
-                <li>Ultrawide 1440p is <strong>nearly 5 million pixels</strong>.</li>
-            </ul>
-            <p>That's a <strong>35% difference</strong> in performance load. A card that flies in the first case starts to choke in the second. Yet we still use names from the CRT TV era: FHD, QHD, UHD. These names are misleading. They are outdated. And above all—they are dishonest to gamers.</p>
-            <h3>That's why I created TruePixel (MP Standard).</h3>
-            <p>It's a simple idea: <strong>A pixel is a pixel.</strong> Your computer doesn't see a "wide screen". It sees a matrix of dots to color 60 times a second.</p>
-            <p>Instead of guessing if your RTX can handle a new monitor, look at the <strong>MP Class</strong>:</p>
-            <ul class="list-none pl-0 space-y-2 my-4">
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-slate-200 dark:bg-slate-800 rounded text-xs font-bold">Class ↓2M</span> <span class="text-sm">Sub-1080p. Entry Level.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-slate-200 dark:bg-slate-800 rounded text-xs font-bold">Class 2M</span> <span class="text-sm">1920x1080. The Baseline.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded text-xs font-bold">Class 4M</span> <span class="text-sm">1440p. Modern Standard.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded text-xs font-bold">Class 5M↑</span> <span class="text-sm">Ultrawide. High Performance.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-slate-800 dark:bg-white text-white dark:text-black rounded text-xs font-bold">Class 8M↑</span> <span class="text-sm">4K UHD. Enthusiast Grade.</span></li>
-                <li class="flex items-center gap-2"><span class="px-2 py-1 bg-purple-600 text-white rounded text-xs font-bold">Class 33M↑</span> <span class="text-sm">8K/16K. Currently beyond consumer GPUs in AAA.</span></li>
-            </ul>
-            <p><strong>TruePixel is a tool that brutally brings marketing down to the ground of mathematics.</strong> It shows black on white how much harder your computer has to work. It's a calculator that takes no prisoners.</p>
-            <p class="italic text-sm mt-8 border-l-4 border-primary-500 pl-4 py-1">Because your GPU deserves for you to know what you are doing to it.</p>
-        `;
+            `;
 
         // --- TRANSLATIONS ---
         const translations = {
@@ -816,4 +776,5 @@
         init();
     </script>
 </body>
+
 </html>
