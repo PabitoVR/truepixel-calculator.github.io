@@ -12,521 +12,296 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap">
 
-    <link rel="stylesheet" href="style.css?v=1.2">
-    
-    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <style>
-        /* FORCE PINK COLORS - Backup w razie problemów z Tailwindem */
-        :root {
-            --pink-main: #ec4899;
-            --pink-hover: #db2777;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                        }
+                    }
+                }
+            }
         }
-        .text-primary-700, .text-primary-500 { color: var(--pink-main) !important; }
-        .bg-primary-700, .bg-primary-600 { background-color: var(--pink-main) !important; }
-        .bg-primary-800, .hover\:bg-primary-800:hover { background-color: var(--pink-hover) !important; }
-        .border-primary-700 { border-color: var(--pink-main) !important; }
-        .focus\:border-primary-700:focus { border-color: var(--pink-main) !important; }
-        .focus\:ring-primary-700:focus { --tw-ring-color: var(--pink-main) !important; }
+    </script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.umd.min.js"></script>
 
-        .nav-tab.active { color: var(--pink-main) !important; border-bottom: 2px solid var(--pink-main) !important; }
-        .dark .nav-tab.active { color: #f472b6 !important; border-bottom-color: #f472b6 !important; }
-        .nav-tab.inactive { color: #64748b; border-bottom: 2px solid transparent; }
-        .nav-tab.inactive:hover { color: #334155; }
-        .dark .nav-tab.inactive { color: #94a3b8; }
-        .dark .nav-tab.inactive:hover { color: #e2e8f0; }
-        .glass-panel { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); }
-        .dark .glass-panel { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.5); }
+    <style type="text/tailwindcss">
+        @layer base {
+            body { @apply bg-slate-50 text-slate-900 dark:bg-[#070a13] dark:text-slate-100 transition-colors duration-300; }
+        }
+
+        @layer components {
+            .glass-panel { 
+                @apply bg-white/80 backdrop-blur-md border border-slate-200 shadow-xl; 
+            }
+            .dark .glass-panel { 
+                @apply bg-slate-900/90 backdrop-blur-xl border border-primary-500/30 shadow-[0_0_30px_rgba(0,0,0,0.5)]; 
+            }
+            .nav-tab.active { @apply text-primary-500 border-b-2 border-primary-500; }
+            .nav-tab.inactive { @apply text-slate-500 border-b-2 border-transparent hover:text-slate-700 dark:hover:text-slate-300; }
+        }
+
+        /* FORCE PINK & CONTRAST */
+        #progressBar { 
+            background: linear-gradient(90deg, #f472b6, #ec4899, #be185d) !important;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+        }
+        
+        #activePill { @apply bg-primary-500 shadow-[0_0_15px_rgba(236,72,153,0.4)]; }
+
+        input[type="number"] { @apply bg-slate-100 dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-primary-500 outline-none transition-all; }
+        
+        .preset-btn { @apply bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold transition-all; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300">
+<body>
 
-    <nav class="w-full p-4 lg:p-6 flex flex-col md:flex-row justify-between items-center border-b border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 fixed top-0 z-50 backdrop-blur-md transition-colors duration-300 gap-4 md:gap-0">
+    <nav class="w-full p-4 lg:p-6 flex flex-col md:flex-row justify-between items-center border-b border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-[#0b1120]/90 fixed top-0 z-50 backdrop-blur-md gap-4">
         <div class="flex items-center gap-3">
-            <svg class="w-7 h-7 text-primary-700 dark:text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
-            <span class="text-xl font-bold tracking-tight dark:text-white text-slate-900">TRUE<span class="text-primary-700 dark:text-primary-500">PIXEL</span></span>
+            <svg class="w-8 h-8 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+            <span class="text-2xl font-black tracking-tighter uppercase">True<span class="text-primary-500">Pixel</span></span>
         </div>
 
-        <div class="flex items-center gap-8">
-            <button onclick="switchView('calculator')" id="tab-calculator" aria-label="Calculator View" class="nav-tab active flex items-center gap-2 text-sm font-bold uppercase tracking-wider py-3 min-h-[48px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                <span data-i18n="tabCalc">Calculator</span>
-            </button>
-            <button onclick="switchView('manifest')" id="tab-manifest" aria-label="About the Author View" class="nav-tab inactive flex items-center gap-2 text-sm font-bold uppercase tracking-wider py-3 min-h-[48px] transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                <span data-i18n="tabWhy">About the Author</span>
-            </button>
+        <div class="flex items-center gap-6">
+            <button onclick="switchView('calculator')" id="tab-calculator" class="nav-tab active px-2 py-2 font-bold uppercase text-xs tracking-widest transition-all">Calculator</button>
+            <button onclick="switchView('manifest')" id="tab-manifest" class="nav-tab inactive px-2 py-2 font-bold uppercase text-xs tracking-widest transition-all">About Author</button>
         </div>
         
         <div class="flex items-center gap-4">
-            <button id="langToggle" onclick="toggleLanguage()" aria-label="Toggle language" class="flex items-center gap-2 text-sm font-bold px-4 py-2 min-h-[48px] rounded-full border border-slate-400 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-800 transition text-slate-900 dark:text-slate-200"></button>
-            <button onclick="toggleTheme()" aria-label="Toggle dark mode" class="w-12 h-12 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-yellow-400 hover:bg-slate-300 dark:hover:bg-slate-700 transition" id="themeBtn">
-                </button>
+            <button id="langToggle" onclick="toggleLanguage()" class="text-xs font-black border-2 border-slate-400 dark:border-slate-600 px-3 py-1 rounded-md hover:bg-primary-500 hover:border-primary-500 hover:text-white transition-all">EN</button>
+            <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xl shadow-inner" id="themeBtn">🌙</button>
         </div>
     </nav>
 
-    <main class="relative min-[100dvh] pt-48 md:pt-32">
-        <div id="view-calculator" class="transition-opacity duration-300">
-            <div class="container mx-auto px-4 pb-32 flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-center relative z-10">
-                <div class="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-0 flex flex-col h-full justify-between">
-                    <div class="glass-panel rounded-2xl p-6 lg:p-8 shadow-2xl shadow-primary-900/10">
-                        <h1 class="text-3xl font-extrabold mb-2 dark:text-white text-slate-900" data-i18n="title">Calculate Performance</h1>
-                        <p class="text-slate-700 dark:text-slate-300 mb-8 font-medium" data-i18n="subtitle">Forget "4K". See how much your GPU actually calculates.</p>
+    <main class="pt-32 min-h-screen">
+        <div id="view-calculator" class="container mx-auto px-4 max-w-6xl transition-all duration-300">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start justify-center">
+                
+                <div class="w-full lg:w-1/2 glass-panel rounded-3xl p-8 lg:p-10">
+                    <h1 class="text-4xl font-black mb-2 tracking-tight" data-i18n="title">Calculate Performance</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mb-10 font-medium" data-i18n="subtitle">Forget "4K". See how much your GPU actually calculates.</p>
 
-                        <div class="grid grid-cols-2 gap-6 mb-8">
-                            <div>
-                                <label for="widthInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 font-mono uppercase" data-i18n="widthLabel">WIDTH (PX)</label>
-                                <input type="number" id="widthInput" value="2560" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-400 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700 transition font-mono text-lg font-bold min-h-[48px]">
-                            </div>
-                            <div>
-                                <label for="heightInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 font-mono uppercase" data-i18n="heightLabel">HEIGHT (PX)</label>
-                                <input type="number" id="heightInput" value="1440" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-400 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700 transition font-mono text-lg font-bold min-h-[48px]">
-                            </div>
+                    <div class="grid grid-cols-2 gap-6 mb-10">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase tracking-widest mb-2 opacity-50" data-i18n="widthLabel">Width (PX)</label>
+                            <input type="number" id="widthInput" value="2560" class="w-full rounded-xl px-4 py-4 font-mono text-xl font-bold">
                         </div>
-
-                        <div class="mb-8 relative">
-                            <p class="text-xs text-slate-700 dark:text-slate-400 uppercase tracking-wider font-bold mb-3" data-i18n="presetsLabel">QUICK PRESETS</p>
-                            <div class="relative flex flex-wrap gap-2" id="presetContainer">
-                                <div id="activePill" class="absolute top-0 left-0 bg-primary-700 dark:bg-primary-600 rounded shadow-lg shadow-primary-700/40 opacity-0 pointer-events-none origin-top-left transition-transform duration-300" style="transition-property: transform, opacity, width, height;"></div>
-                            </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase tracking-widest mb-2 opacity-50" data-i18n="heightLabel">Height (PX)</label>
+                            <input type="number" id="heightInput" value="1440" class="w-full rounded-xl px-4 py-4 font-mono text-xl font-bold">
                         </div>
-
-                        <button onclick="calculateMP()" class="w-full bg-primary-700 hover:bg-primary-800 dark:bg-primary-600 dark:hover:bg-primary-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-primary-700/20 transition transform hover:-translate-y-0.5 active:translate-y-0 mb-6 min-h-[48px]" aria-label="Calculate Megapixels">
-                            <span data-i18n="calcButton">CALCULATE MP</span>
-                        </button>
                     </div>
+
+                    <div class="mb-10">
+                        <p class="text-[10px] font-black uppercase tracking-widest mb-4 opacity-50" data-i18n="presetsLabel">Quick Presets</p>
+                        <div class="relative flex flex-wrap gap-2" id="presetContainer">
+                            <div id="activePill" class="absolute top-0 left-0 rounded-md transition-all duration-300 opacity-0 pointer-events-none"></div>
+                        </div>
+                    </div>
+
+                    <button onclick="calculateMP()" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-black py-5 rounded-2xl shadow-lg shadow-primary-500/30 transition-all active:scale-95 text-lg uppercase tracking-tighter" data-i18n="calcButton">
+                        Przelicz na MP
+                    </button>
                 </div>
 
-                <div class="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-0 flex flex-col gap-6" aria-live="polite">
-                    <div id="placeholderState" class="flex flex-col items-center justify-center h-[500px] text-slate-600 dark:text-slate-400 border-2 border-dashed border-slate-400 dark:border-slate-700 rounded-2xl">
-                        <svg class="w-16 h-16 mb-4 text-slate-400 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                        <p class="font-bold" data-i18n="placeholderText">Enter data and press Calculate</p>
+                <div class="w-full lg:w-1/2 flex flex-col gap-6">
+                    <div id="placeholderState" class="h-64 border-4 border-dashed border-slate-300 dark:border-slate-800 rounded-3xl flex items-center justify-center opacity-40 font-bold">
+                        <p data-i18n="placeholderText">Wprowadź dane i naciśnij Przelicz</p>
                     </div>
 
-                    <div id="resultPanel" class="hidden opacity-0 transition-opacity duration-500 flex flex-col gap-6">
-                        <div class="glass-panel rounded-2xl p-6 lg:p-8 border-primary-700/30 relative overflow-hidden flex-1">
-                            <div class="absolute top-0 right-0 w-48 h-48 bg-primary-700/10 dark:bg-primary-500/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
-                            
-                            <h2 class="text-slate-700 dark:text-slate-400 text-xs font-bold tracking-widest uppercase mb-1" data-i18n="loadLabel">GPU LOAD</h2>
-                            <div class="flex items-baseline gap-2">
-                                <span id="mpValue" class="text-6xl font-extrabold text-slate-900 dark:text-white tracking-tighter"></span>
-                                <span class="text-2xl font-bold text-primary-700 dark:text-primary-500">MP</span>
+                    <div id="resultPanel" class="hidden opacity-0 transition-all duration-500 flex flex-col gap-6 scale-95">
+                        <div class="glass-panel rounded-3xl p-8 lg:p-10 relative overflow-hidden">
+                            <h2 class="text-[10px] font-black tracking-[0.2em] uppercase mb-2 opacity-60" data-i18n="loadLabel">GPU PIXEL LOAD</h2>
+                            <div class="flex items-baseline gap-2 mb-2">
+                                <span id="mpValue" class="text-7xl lg:text-8xl font-black tracking-tighter text-slate-900 dark:text-white"></span>
+                                <span class="text-3xl font-black text-primary-500">MP</span>
                             </div>
-                            <p id="className" class="text-xl mt-2 font-bold text-slate-800 dark:text-slate-200"></p>
+                            <p id="className" class="text-xl font-black uppercase tracking-tight text-primary-500 mb-8"></p>
                             
-                            <div class="mt-6 pt-6 border-t border-slate-300 dark:border-slate-700/50">
-                                <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-slate-700 dark:text-slate-300 font-semibold" data-i18n="vsFhdLabel">Vs FHD (1080p):</span>
-                                    <span id="percentageDiff" class="font-bold text-emerald-700 dark:text-emerald-400"></span>
+                            <div class="pt-8 border-t-2 border-slate-200 dark:border-slate-800">
+                                <div class="flex justify-between text-xs font-black mb-3 uppercase">
+                                    <span data-i18n="vsFhdLabel">Vs FHD (1080p):</span>
+                                    <span id="percentageDiff" class="text-primary-500 text-lg"></span>
                                 </div>
-                                <div class="w-full h-3 bg-slate-300 dark:bg-slate-700 rounded-full overflow-hidden relative">
-                                    <div class="absolute left-[100%] top-0 bottom-0 w-px bg-slate-500/50 dark:bg-slate-400/50 z-10" title="4K (8.3MP)"></div>
-                                    <div id="progressBar" class="h-full w-full bg-gradient-to-r from-primary-700 to-primary-800 dark:from-primary-500 dark:to-primary-600 transition-transform duration-1000 ease-out origin-left" style="transform: scaleX(0)"></div>
+                                <div class="w-full h-5 bg-slate-200 dark:bg-slate-900 rounded-full overflow-hidden p-1 shadow-inner">
+                                    <div id="progressBar" class="h-full rounded-full transition-transform duration-1000 ease-out origin-left" style="transform: scaleX(0)"></div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="glass-panel rounded-2xl p-6 flex-1">
-                            <h3 class="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-                                <svg class="w-5 h-5 text-primary-700 dark:text-primary-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-                                <span data-i18n="verdictTitle">Verdict</span>
-                            </h3>
-                            <p id="verdictText" class="text-slate-800 dark:text-slate-200 font-medium leading-relaxed text-sm"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="bottomFade" class="fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-50 dark:from-slate-950 to-transparent pointer-events-none z-20 transition-opacity duration-500"></div>
-
-            <button id="navFab" aria-label="Quick navigation" class="fixed left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 min-h-[48px] bg-slate-900 dark:bg-slate-800 text-white dark:text-primary-400 rounded-full shadow-2xl shadow-primary-900/40 border border-slate-700 dark:border-primary-500/30 flex items-center justify-center gap-3 cursor-pointer hover:scale-105 transition-all duration-300 bottom-8">
-                <span id="navFabText" class="font-bold text-sm tracking-wide">Ask Advisor</span>
-                <span id="navFabIconContainer">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                </span>
-            </button>
-
-            <div id="aiSection" class="w-full relative bg-slate-100 dark:bg-slate-900 border-t border-slate-300 dark:border-slate-800 pt-24 pb-24 z-0">
-                <div class="container mx-auto px-4 max-w-4xl relative z-10">
-                    <div class="text-center mb-10">
-                        <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-3 flex items-center justify-center gap-3">
-                            <svg class="w-8 h-8 text-ai-700 dark:text-ai-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                            <span data-i18n="aiTitle">AI Hardware Advisor</span>
-                        </h3>
-                        <p class="text-slate-700 dark:text-slate-300 font-medium" data-i18n="aiSubtitle">Ask Gemini which specific GPUs are recommended for this load.</p>
-                    </div>
-
-                    <div class="glass-panel rounded-2xl p-8 border-ai-700/30 shadow-2xl shadow-ai-700/10 max-w-2xl mx-auto">
-                        <button onclick="askGemini()" id="aiButton" aria-label="Ask AI for Recommendations" class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-ai-700 to-purple-800 hover:from-ai-800 hover:to-purple-900 dark:from-ai-600 dark:to-purple-700 text-white font-bold py-4 rounded-xl transition-all duration-300 group shadow-lg shadow-ai-700/20 min-h-[48px]">
-                            <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            <span data-i18n="aiButtonText">Ask AI for GPU Recommendations</span>
-                        </button>
-
-                        <div id="aiResult" class="hidden mt-6 pt-6 border-t border-slate-300 dark:border-slate-700/50" aria-live="polite">
-                            <div id="aiLoading" class="hidden flex flex-col items-center justify-center gap-3 py-6 text-ai-700 dark:text-ai-400">
-                                <svg class="w-8 h-8 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                                <span class="text-sm font-bold animate-pulse">Analyzing pixel density & VRAM requirements...</span>
-                            </div>
-                            <div id="aiContent" class="text-sm lg:text-base text-slate-800 dark:text-slate-200 leading-relaxed font-medium"></div>
+                        <div class="glass-panel rounded-3xl p-8">
+                            <h3 class="font-black text-xs uppercase tracking-widest mb-4 opacity-50" data-i18n="verdictTitle">Verdict</h3>
+                            <p id="verdictText" class="text-lg font-bold leading-snug"></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="view-manifest" class="hidden transition-opacity duration-300 pb-24">
-            <div class="container mx-auto px-4 max-w-3xl">
-                <div class="glass-panel rounded-3xl p-8 lg:p-12 shadow-2xl shadow-primary-900/10 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-64 h-64 bg-primary-700/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
-                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-ai-700/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
-
-                    <h1 class="text-4xl lg:text-5xl font-extrabold mb-2 dark:text-white text-slate-900 tracking-tight" data-i18n="manifestTitle">O Autorze</h1>
-                    <p class="text-xl text-primary-700 dark:text-primary-400 font-bold mb-10" data-i18n="manifestSubtitle"></p>
-                    
-                    <div class="prose dark:prose-invert prose-slate lg:prose-lg max-w-none text-slate-800 dark:text-slate-200">
-                        <div data-i18n-html="manifestContent"></div>
-                    </div>
-                    
-                    <div class="mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 text-center">
-                        <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">Author: <strong class="text-slate-900 dark:text-white">Jakub Pabisz</strong></p>
-                    </div>
-                </div>
+        <div id="view-manifest" class="container mx-auto px-4 max-w-3xl hidden opacity-0 transition-all duration-300">
+            <div class="glass-panel rounded-3xl p-10 lg:p-16">
+                <h1 class="text-5xl font-black mb-10 tracking-tighter" data-i18n="manifestTitle">O Autorze</h1>
+                <div id="manifestContent" class="prose dark:prose-invert max-w-none text-xl font-medium leading-relaxed"></div>
             </div>
         </div>
     </main>
 
-    <footer class="text-center py-8 text-slate-700 dark:text-slate-400 text-sm border-t border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm flex flex-col items-center gap-4 font-medium">
-        <p>&copy; 2026 TruePixel. Created by <span class="font-bold text-primary-700 dark:text-primary-500">Jakub Pabisz</span>.</p>
-        <div class="flex items-center gap-2 px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-300 rounded-full text-xs font-bold border border-slate-400 dark:border-slate-600 cursor-default min-h-[48px]">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            <span data-i18n="coffeeComingSoon">Ko-Fi.com donations coming soon</span>
-        </div>
+    <footer class="py-12 text-center text-[10px] font-black uppercase tracking-widest opacity-40">
+        <p>&copy; 2026 TruePixel | Created by Jakub Pabisz</p>
     </footer>
 
     <script>
-        // API Key logic and translations remain same as your provided code
-        const k1 = "AIzaSyBTQC1-kt1zTCe"; 
-        const k2 = "MNkRCeVgMZiO_FhocKDU";     
-        const apiKey = k1 + k2;
-
-        const icons = {
-            sun: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>`,
-            moon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>`,
-            down: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>`,
-            up: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>`
-        };
-
-        const flags = {
-            en: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" class="w-6 h-4 rounded shadow-sm" aria-hidden="true"><rect width="50" height="30" fill="#b22234"/><path d="M0,4.6h50M0,9.2h50M0,13.8h50M0,18.5h50M0,23.1h50" stroke="#fff" stroke-width="2.3"/><rect width="20" height="16" fill="#3c3b6e"/><path d="M2,2l2,2M6,2l-2,2M10,2l2,2M14,2l-2,2M18,2l2,2" stroke="#fff" stroke-width="1" stroke-linecap="round"/></svg>`,
-            pl: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" class="w-6 h-4 rounded shadow-sm border border-slate-400 dark:border-transparent" aria-hidden="true"><rect width="50" height="15" fill="#fff"/><rect y="15" width="50" height="15" fill="#dc143c"/></svg>`
-        };
-
-        const manifestPL = `Ogólnie to interesują mnie te nowoczesne wynalazki... [itd]`;
-        const manifestEN = `Basically, I'm into all that modern stuff... [itd]`;
-
+        const apiKey = "AIzaSyBTQC1-kt1zTCeMNkRCeVgMZiO_FhocKDU";
         const translations = {
             en: {
-                tabCalc: "Calculator", tabWhy: "About Me", title: "Calculate Performance", subtitle: "Forget \"upscaling\". See how much your GPU actually calculates.",
-                widthLabel: "WIDTH (PX)", heightLabel: "HEIGHT (PX)", presetsLabel: "QUICK PRESETS", calcButton: "CALCULATE MP", loadLabel: "GPU LOAD",
-                vsFhdLabel: "Vs FHD (1080p):", verdictTitle: "Verdict", placeholderText: "Enter data and press Calculate", pixels: "pixels", load: "load vs FHD",
-                aiTitle: "AI Hardware Advisor", aiSubtitle: "Get GPU recommendations.", aiButtonText: "Ask AI",
-                navAsk: "Ask Advisor", navBack: "Get Back", coffeeComingSoon: "Ko-Fi.com donations coming soon", manifestTitle: "About the Author",
-                manifestSubtitle: "", authorTagline: "",
-                verdicts: {
-                    legacy: "Entry Level...", fhd: "1080p...", qhd: "1440p...", uw: "High Performance...", uhd: "4K UHD...", extreme: "8K+..."
-                },
-                classes: { legacy: "Class ↓2M (Entry)", fhd: "Class 2M (Standard)", qhd: "Class 4M (Modern)", uw: "Class 5M↑ (High Res)", uhd: "Class 8M↑ (Enthusiast)", extreme: "Class 33M↑ (Extreme)" }
+                tabCalc: "Calculator", tabWhy: "About", title: "Calculate Performance", subtitle: "Forget \"upscaling\". See how much your GPU actually calculates.",
+                widthLabel: "Width (PX)", heightLabel: "Height (PX)", presetsLabel: "Quick Presets", calcButton: "Calculate MP", loadLabel: "GPU PIXEL LOAD",
+                vsFhdLabel: "Vs FHD (1080p):", verdictTitle: "Verdict", placeholderText: "Enter data and press Calculate",
+                manifestTitle: "About Author",
+                verdicts: { legacy: "Legacy resolution. Any modern toaster can run this.", fhd: "The gold standard for years, but showing its age.", qhd: "The current sweet spot for high-end gaming.", uhd: "Heavyweight territory. You need a monster GPU here.", extreme: "Uncharted territory. Pixels are everywhere." }
             },
             pl: {
-                tabCalc: "Kalkulator", tabWhy: "O Autorze", title: "Oblicz Wydajność", subtitle: "Zapomnij o \"upskalowaniu\". Sprawdź, ile naprawdę musi liczyć Twoja karta.",
-                widthLabel: "SZEROKOŚĆ (PX)", heightLabel: "WYSOKOŚĆ (PX)", presetsLabel: "SZYBKIE WYBORY", calcButton: "PRZELICZ NA MP", loadLabel: "OBCIĄŻENIE GPU",
-                vsFhdLabel: "Względem FHD (1080p):", verdictTitle: "Werdykt", placeholderText: "Wprowadź dane i naciśnij Przelicz", pixels: "pikseli", load: "obciążenia vs FHD",
-                aiTitle: "Doradca Sprzętowy AI", aiSubtitle: "Sprawdź rekomendacje GPU.", aiButtonText: "Zapytaj AI",
-                navAsk: "Zapytaj doradcy", navBack: "Wróć", coffeeComingSoon: "Wsparcie przez Ko-Fi wkrótce", manifestTitle: "O Autorze",
-                manifestSubtitle: "", authorTagline: "",
-                verdicts: {
-                    legacy: "Poziom podstawowy...", fhd: "Standard 1080p...", qhd: "Złoty środek 1440p...", uw: "Teren podwyższonego ryzyka...", uhd: "Waga ciężka 4K...", extreme: "God Mode..."
-                },
-                classes: { legacy: "Klasa ↓2M (Entry)", fhd: "Klasa 2M (Standard)", qhd: "Klasa 4M (Modern)", uw: "Klasa 5M↑ (High Res)", uhd: "Klasa 8M↑ (Enthusiast)", extreme: "Klasa 33M↑ (Extreme)" }
+                tabCalc: "Kalkulator", tabWhy: "O Autorze", title: "Oblicz Wydajność", subtitle: "Zapomnij o upskalowaniu. Sprawdź realny wycisk dla karty.",
+                widthLabel: "Szerokość (PX)", heightLabel: "Wysokość (PX)", presetsLabel: "Szybkie wybory", calcButton: "Przelicz na MP", loadLabel: "OBCIĄŻENIE GPU",
+                vsFhdLabel: "Względem FHD (1080p):", verdictTitle: "Werdykt", placeholderText: "Wprowadź dane i naciśnij Przelicz",
+                manifestTitle: "O Autorze",
+                verdicts: { legacy: "Rozdzielczość archiwalna. Każdy kalkulator to udźwignie.", fhd: "Standard, który powoli odchodzi do lamusa.", qhd: "Złoty środek dla nowoczesnych graczy.", uhd: "Waga ciężka. Tu zaczynają się schody dla GPU.", extreme: "Absolutne ekstremum. Powodzenia dla VRAMu." }
             }
         };
 
-        let currentLang = 'en';
+        let currentLang = 'pl';
         let currentTheme = 'dark';
-        let currentView = 'calculator';
-        let isFabAtTop = false; 
-        let isTransitioning = false; 
-        
+
         const presets = [
             { label: "FHD", w: 1920, h: 1080 },
             { label: "QHD", w: 2560, h: 1440 },
             { label: "UW 34\"", w: 3440, h: 1440 },
-            { label: "SUW 49\"", w: 5120, h: 1440 },
             { label: "4K UHD", w: 3840, h: 2160 }
         ];
 
-        window.addEventListener('scroll', () => {
-            const fab = document.getElementById('navFab');
-            const fabText = document.getElementById('navFabText');
-            const iconCont = document.getElementById('navFabIconContainer');
-            const fade = document.getElementById('bottomFade'); 
-            
-            const t = translations[currentLang];
-            const scrollY = window.scrollY;
-            const threshold = 100; 
-            
-            const distToBottom = document.documentElement.scrollHeight - window.scrollY - window.innerHeight;
-            
-            if (distToBottom < 50) fade.style.opacity = '0';
-            else if (distToBottom < 300) fade.style.opacity = ((distToBottom - 50) / 250).toFixed(2);
-            else fade.style.opacity = '1';
-            
-            if (scrollY > threshold && !isFabAtTop && !isTransitioning) {
-                isTransitioning = true;
-                fab.classList.add('opacity-0', 'scale-75');
-                setTimeout(() => {
-                    isFabAtTop = true;
-                    fab.classList.remove('bottom-8');
-                    fab.classList.add('top-24'); 
-                    fabText.innerText = t.navBack;
-                    iconCont.innerHTML = icons.up;
-                    fab.onclick = () => { fab.classList.add('opacity-0'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-                    fab.classList.remove('opacity-0', 'scale-75');
-                    isTransitioning = false;
-                }, 300); 
-            } else if (scrollY <= threshold && isFabAtTop && !isTransitioning) {
-                isTransitioning = true;
-                fab.classList.add('opacity-0', 'scale-75');
-                setTimeout(() => {
-                    isFabAtTop = false;
-                    fab.classList.remove('top-24');
-                    fab.classList.add('bottom-8');
-                    fabText.innerText = t.navAsk;
-                    iconCont.innerHTML = icons.down;
-                    fab.onclick = () => { fab.classList.add('opacity-0'); document.getElementById('aiSection').scrollIntoView({ behavior: 'smooth' }); };
-                    fab.classList.remove('opacity-0', 'scale-75');
-                    isTransitioning = false;
-                }, 300);
-            }
-        }, { passive: true });
-
-        function switchView(view) {
-            currentView = view;
-            const calcView = document.getElementById('view-calculator');
-            const manView = document.getElementById('view-manifest');
-            const fab = document.getElementById('navFab');
-            
-            if (view === 'calculator') {
-                calcView.classList.remove('hidden');
-                manView.classList.add('hidden');
-                fab.style.display = 'flex'; 
-                setTimeout(() => fab.classList.remove('opacity-0', 'translate-y-10'), 100);
-                document.getElementById('tab-calculator').classList.add('active');
-                document.getElementById('tab-calculator').classList.remove('inactive');
-                document.getElementById('tab-manifest').classList.add('inactive');
-                document.getElementById('tab-manifest').classList.remove('active');
-            } else {
-                calcView.classList.add('hidden');
-                manView.classList.remove('hidden');
-                fab.classList.add('opacity-0', 'translate-y-10');
-                setTimeout(() => fab.style.display = 'none', 300); 
-                document.getElementById('tab-manifest').classList.add('active');
-                document.getElementById('tab-manifest').classList.remove('inactive');
-                document.getElementById('tab-calculator').classList.add('inactive');
-                document.getElementById('tab-calculator').classList.remove('active');
-            }
+        function init() {
+            const container = document.getElementById('presetContainer');
+            presets.forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = "preset-btn px-4 py-2 rounded-lg text-xs font-black uppercase tracking-tighter z-10";
+                btn.innerText = p.label;
+                btn.onclick = () => {
+                    document.getElementById('widthInput').value = p.w;
+                    document.getElementById('heightInput').value = p.h;
+                    calculateMP();
+                };
+                container.appendChild(btn);
+            });
+            updateUI();
+            calculateMP();
         }
 
-        function init() {
-            const userLang = navigator.language || navigator.userLanguage; 
-            if (userLang.startsWith('pl')) currentLang = 'pl';
-            if (localStorage.getItem('theme')) currentTheme = localStorage.getItem('theme');
-            else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) currentTheme = 'light';
+        function calculateMP() {
+            const w = parseInt(document.getElementById('widthInput').value) || 0;
+            const h = parseInt(document.getElementById('heightInput').value) || 0;
+            const t = translations[currentLang];
+
+            const mp = ((w * h) / 1000000).toFixed(2);
+            const diff = (((w * h) - (1920 * 1080)) / (1920 * 1080) * 100).toFixed(0);
             
-            applyTheme();
-            updateLanguageUI();
-            initPresetButtons();
+            document.getElementById('mpValue').innerText = mp;
+            document.getElementById('percentageDiff').innerText = (diff > 0 ? "+" + diff : diff) + "%";
             
-            const fab = document.getElementById('navFab');
-            fab.onclick = () => { fab.classList.add('opacity-0'); document.getElementById('aiSection').scrollIntoView({ behavior: 'smooth' }); };
+            let v = "";
+            if (mp < 1.5) v = t.verdicts.legacy;
+            else if (mp < 2.5) v = t.verdicts.fhd;
+            else if (mp < 4.5) v = t.verdicts.qhd;
+            else if (mp < 9) v = t.verdicts.uhd;
+            else v = t.verdicts.extreme;
+
+            document.getElementById('className').innerText = mp < 3 ? "Standard Class" : mp < 6 ? "High Class" : "Enthusiast Class";
+            document.getElementById('verdictText').innerText = v;
             
-            setTimeout(() => calculateMP(), 50);
-            window.dispatchEvent(new Event('scroll'));
-            window.addEventListener('resize', updatePresetUIState, { passive: true });
+            document.getElementById('placeholderState').classList.add('hidden');
+            const res = document.getElementById('resultPanel');
+            res.classList.remove('hidden');
+            setTimeout(() => {
+                res.classList.remove('opacity-0', 'scale-95');
+                document.getElementById('progressBar').style.transform = `scaleX(${Math.min((w*h)/8300000, 1)})`;
+            }, 50);
+            updatePill();
+        }
+
+        function updatePill() {
+            const w = document.getElementById('widthInput').value;
+            const h = document.getElementById('heightInput').value;
+            const pill = document.getElementById('activePill');
+            const btns = document.querySelectorAll('.preset-btn');
+            let found = false;
+
+            btns.forEach(btn => {
+                const p = presets.find(x => x.label === btn.innerText);
+                if(p && p.w == w && p.h == h) {
+                    pill.style.width = btn.offsetWidth + 'px';
+                    pill.style.height = btn.offsetHeight + 'px';
+                    pill.style.left = btn.offsetLeft + 'px';
+                    pill.style.top = btn.offsetTop + 'px';
+                    pill.style.opacity = '1';
+                    btn.classList.add('text-white');
+                    found = true;
+                } else {
+                    btn.classList.remove('text-white');
+                }
+            });
+            if(!found) pill.style.opacity = '0';
+        }
+
+        function switchView(view) {
+            const calc = document.getElementById('view-calculator');
+            const manifest = document.getElementById('view-manifest');
+            
+            if(view === 'calculator') {
+                manifest.classList.add('hidden', 'opacity-0');
+                calc.classList.remove('hidden');
+                setTimeout(() => calc.classList.remove('opacity-0'), 50);
+            } else {
+                calc.classList.add('hidden', 'opacity-0');
+                manifest.classList.remove('hidden');
+                setTimeout(() => manifest.classList.remove('opacity-0'), 50);
+            }
+            document.getElementById('tab-calculator').classList.toggle('active', view === 'calculator');
+            document.getElementById('tab-calculator').classList.toggle('inactive', view !== 'calculator');
+            document.getElementById('tab-manifest').classList.toggle('active', view === 'manifest');
+            document.getElementById('tab-manifest').classList.toggle('inactive', view !== 'manifest');
         }
 
         function toggleTheme() {
             currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', currentTheme);
-            applyTheme();
-        }
-
-        function applyTheme() {
-            const html = document.documentElement;
-            const btn = document.getElementById('themeBtn');
-            if (currentTheme === 'dark') {
-                html.classList.add('dark');
-                btn.innerHTML = icons.sun;
-            } else {
-                html.classList.remove('dark');
-                btn.innerHTML = icons.moon;
-            }
+            document.documentElement.classList.toggle('dark');
+            document.getElementById('themeBtn').innerText = currentTheme === 'dark' ? '🌙' : '☀️';
         }
 
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'pl' : 'en';
-            updateLanguageUI();
-            if (!document.getElementById('resultPanel').classList.contains('hidden')) calculateMP();
-            const t = translations[currentLang];
-            const fabText = document.getElementById('navFabText');
-            if (isFabAtTop) fabText.innerText = t.navBack;
-            else fabText.innerText = t.navAsk;
+            updateUI();
+            calculateMP();
         }
 
-        function updateLanguageUI() {
+        function updateUI() {
             const t = translations[currentLang];
-            const langBtn = document.getElementById('langToggle');
-            langBtn.innerHTML = `${currentLang === 'en' ? flags.en : flags.pl} <span>${currentLang === 'en' ? 'EN' : 'PL'}</span>`;
-            document.documentElement.lang = currentLang;
-
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) el.innerText = t[key];
             });
-
-            const manifestContainer = document.querySelector('[data-i18n-html="manifestContent"]');
-            if (manifestContainer) manifestContainer.innerHTML = currentLang === 'pl' ? manifestPL : manifestEN;
+            document.getElementById('langToggle').innerText = currentLang.toUpperCase();
+            document.getElementById('manifestContent').innerHTML = currentLang === 'pl' ? `<p>Nazywam się Jakub i stworzyłem TruePixel, bo miałem dość marketingu opartego na pustych hasłach "4K". Karta graficzna nie widzi napisu na pudełku monitora - widzi miliony pikseli do przeliczenia. To narzędzie ma pokazać realną skalę wyzwania, przed jakim staje Twój sprzęt.</p>` : `<p>My name is Jakub and I created TruePixel because I was tired of marketing based on empty "4K" slogans. A graphics card doesn't see the label on your monitor box - it sees millions of pixels to calculate. This tool is meant to show the real scale of the challenge your hardware faces.</p>`;
         }
 
-        function initPresetButtons() {
-            const container = document.getElementById('presetContainer');
-            presets.forEach((p, index) => {
-                const btn = document.createElement('button');
-                btn.className = `preset-btn relative z-10 px-4 py-2 min-h-[48px] rounded text-sm transition-colors duration-200 font-bold bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50`;
-                btn.innerText = p.label;
-                btn.dataset.w = p.w; btn.dataset.h = p.h; btn.dataset.index = index;
-                btn.onclick = () => setRes(p.w, p.h);
-                container.appendChild(btn);
-            });
-        }
-
-        function setRes(w, h) {
-            document.getElementById('widthInput').value = w;
-            document.getElementById('heightInput').value = h;
-            calculateMP();
-        }
-        
-        let presetUpdateScheduled = false;
-
-        function updatePresetUIState() {
-            if (presetUpdateScheduled) return;
-            presetUpdateScheduled = true;
-            const currentW = parseInt(document.getElementById('widthInput').value);
-            const currentH = parseInt(document.getElementById('heightInput').value);
-            const buttons = document.querySelectorAll('.preset-btn');
-            
-            let targetMetrics = null, targetIndex = -1;
-            buttons.forEach((btn, idx) => {
-                if (parseInt(btn.dataset.w) === currentW && parseInt(btn.dataset.h) === currentH) {
-                    targetIndex = idx;
-                    targetMetrics = { left: btn.offsetLeft, top: btn.offsetTop, width: btn.offsetWidth, height: btn.offsetHeight };
-                }
-            });
-
-            requestAnimationFrame(() => {
-                const pill = document.getElementById('activePill');
-                buttons.forEach((btn, idx) => {
-                    if (idx === targetIndex) {
-                        btn.classList.remove('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
-                        btn.classList.add('text-white');
-                    } else {
-                        btn.classList.remove('text-white');
-                        btn.classList.add('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
-                    }
-                });
-                if (targetMetrics) {
-                    pill.style.opacity = '1'; pill.style.width = targetMetrics.width + 'px'; pill.style.height = targetMetrics.height + 'px';
-                    pill.style.transform = `translate(${targetMetrics.left}px, ${targetMetrics.top}px)`;
-                } else pill.style.opacity = '0';
-                presetUpdateScheduled = false;
-            });
-        }
-
-        function calculateMP() {
-            const width = parseInt(document.getElementById('widthInput').value);
-            const height = parseInt(document.getElementById('heightInput').value);
-            const t = translations[currentLang];
-            if (!width || !height) return;
-
-            updatePresetUIState();
-            document.getElementById('aiResult').classList.add('hidden');
-            document.getElementById('aiContent').innerHTML = '';
-
-            const pixels = width * height;
-            const megapixels = (pixels / 1000000).toFixed(2);
-            const diff = ((pixels - 1920 * 1080) / (1920 * 1080)) * 100;
-            const diffStr = diff > 0 ? `+${diff.toFixed(0)}%` : `${diff.toFixed(0)}%`;
-            
-            let colorClass = diff <= 0 ? 'text-emerald-700 dark:text-emerald-400' : diff <= 80 ? 'text-amber-700 dark:text-amber-400' : 'text-rose-700 dark:text-rose-400';
-
-            let className = "", verdict = "";
-            if (megapixels < 1.5) { className = t.classes.legacy; verdict = t.verdicts.legacy; }
-            else if (megapixels < 2.5) { className = t.classes.fhd; verdict = t.verdicts.fhd; }
-            else if (megapixels < 4.5) { className = t.classes.qhd; verdict = t.verdicts.qhd; }
-            else if (megapixels < 7.5) { className = t.classes.uw; verdict = t.verdicts.uw; }
-            else if (megapixels < 30) { className = t.classes.uhd; verdict = t.verdicts.uhd; }
-            else { className = t.classes.extreme; verdict = t.verdicts.extreme; }
-
-            document.getElementById('mpValue').innerText = megapixels;
-            document.getElementById('className').innerText = className;
-            const diffEl = document.getElementById('percentageDiff');
-            diffEl.innerText = `${diffStr} ${t.load}`; diffEl.className = `font-bold ${colorClass}`;
-            document.getElementById('verdictText').innerText = verdict;
-            
-            document.getElementById('placeholderState').classList.add('hidden');
-            const resultPanel = document.getElementById('resultPanel');
-            resultPanel.classList.remove('hidden');
-            
-            requestAnimationFrame(() => requestAnimationFrame(() => {
-                resultPanel.classList.remove('opacity-0');
-                setTimeout(() => document.getElementById('progressBar').style.transform = `scaleX(${Math.min(pixels / 8300000, 1)})`, 100);
-            }));
-        }
-
-        async function askGemini() {
-            const width = document.getElementById('widthInput').value;
-            const height = document.getElementById('heightInput').value;
-            const mp = document.getElementById('mpValue').innerText;
-            const resultDiv = document.getElementById('aiResult'), loadingDiv = document.getElementById('aiLoading'), contentDiv = document.getElementById('aiContent'), btn = document.getElementById('aiButton');
-            
-            if (!apiKey) {
-                contentDiv.innerHTML = `<p class="text-amber-700 dark:text-amber-500">Brak klucza API!</p>`;
-                resultDiv.classList.remove('hidden'); loadingDiv.classList.add('hidden'); return;
-            }
-
-            resultDiv.classList.remove('hidden'); loadingDiv.classList.remove('hidden'); contentDiv.innerHTML = '';
-            btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed');
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `Width: ${width}, Height: ${height}, ${mp} MP. Lang: ${currentLang}. Short bullet points for GPU.` }] }], systemInstruction: { parts: [{ text: "Hardware expert. Concisely recommend GPUs." }] } })
-                });
-                const data = await response.json();
-                if (data.error) throw new Error(data.error.message);
-                contentDiv.innerHTML = marked.parse(data.candidates[0].content.parts[0].text);
-            } catch (error) { contentDiv.innerHTML = `<p class="text-rose-700 dark:text-rose-400">Error: ${error.message}</p>`; } 
-            finally { loadingDiv.classList.add('hidden'); btn.disabled = false; btn.classList.remove('opacity-50', 'cursor-not-allowed'); }
-        }
-
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', () => updatePresetUIState());
-            input.addEventListener('keypress', (e) => { if (e.key === 'Enter') calculateMP(); });
-        });
-        
         init();
-    </script> 
+    </script>
 </body>
 </html>
