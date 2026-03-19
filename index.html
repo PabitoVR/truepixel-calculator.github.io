@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TruePixel Calculator - Oblicz rzeczywiste obciążenie karty graficznej.">
+    <meta name="description" content="TruePixel Calculator - Oblicz rzeczywiste obciążenie karty graficznej względem 1080p.">
     <meta name="theme-color" content="#0f172a">
+    <link rel="canonical" href="https://pabitovr.github.io/truepixel-calculator/">
     
     <title>TruePixel Calculator</title>
     
@@ -12,20 +13,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"></noscript>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-    <style>
-        @font-face {
-            font-family: 'Font Awesome 6 Free';
-            font-style: normal;
-            font-weight: 900;
-            font-display: swap; 
-            src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2") format("woff2");
-        }
-    </style>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
 
@@ -262,7 +253,6 @@
             { label: "4K UHD", w: 3840, h: 2160 }
         ];
 
-        // Wyraźnie oznaczamy nasłuchiwanie jako pasywne (choć to było już zrobione, teraz linter nie ma prawa pisnąć)
         window.addEventListener('scroll', () => {
             const fab = document.getElementById('navFab');
             const fabText = document.getElementById('navFabText');
