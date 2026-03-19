@@ -19,86 +19,9 @@
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: { 400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d', 800: '#9d174d' },
-                        ai: { 400: '#c084fc', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce' }
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'bounce-slow': 'bounce 2s infinite',
-                    },
-                    transitionTimingFunction: {
-                        'bounce-sm': 'cubic-bezier(0.4, 0, 0.2, 1)',
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="style.css">
     
     <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-            overflow-x: hidden;
-        }
-        
-        ::-webkit-scrollbar { display: none; }
-        body { -ms-overflow-style: none; scrollbar-width: none; }
-
-        .mono { font-family: 'JetBrains Mono', monospace; }
-
-        .glass-panel {
-            backdrop-filter: blur(12px);
-            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-        }
-
-        html.dark .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        html:not(.dark) .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        }
-
-        input[type=range] { -webkit-appearance: none; background: transparent; }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 16px; width: 16px; border-radius: 50%;
-            background: #be185d; cursor: pointer; margin-top: -6px; 
-            box-shadow: 0 0 10px rgba(190, 24, 93, 0.5);
-        }
-        html.dark input[type=range]::-webkit-slider-thumb {
-            background: #ec4899;
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%; height: 4px; cursor: pointer; background: #94a3b8; border-radius: 2px;
-        }
-        html.dark input[type=range]::-webkit-slider-runnable-track { background: #475569; }
-        
-        .ai-response p { margin-bottom: 0.5rem; }
-        .ai-response strong { color: #be185d; font-weight: 700; }
-        .ai-response ul { list-style-type: disc; padding-left: 1.2rem; margin-bottom: 0.5rem; }
-        .ai-response li { margin-bottom: 0.2rem; }
-        html.dark .ai-response strong { color: #f472b6; }
-
-        .nav-tab.active { color: #be185d; border-bottom: 2px solid #be185d; }
-        html.dark .nav-tab.active { color: #ec4899; border-bottom: 2px solid #ec4899; }
-        .nav-tab.inactive { color: #475569; border-bottom: 2px solid transparent; }
-        html.dark .nav-tab.inactive { color: #94a3b8; }
-        .nav-tab:hover { color: #9d174d; }
-        html.dark .nav-tab:hover { color: #f472b6; }
-    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-200 selection:bg-primary-700 dark:selection:bg-primary-500 selection:text-white transition-colors duration-300">
 
@@ -522,7 +445,6 @@
             const pill = document.getElementById('activePill');
             const buttons = document.querySelectorAll('.preset-btn');
             
-            // OPTYMALIZACJA WYDAJNOŚCI - Faza odczytu z DOM (zapobiega Forced Reflow)
             let targetMetrics = null;
             let targetBtn = null;
             
@@ -540,7 +462,6 @@
                 }
             });
 
-            // OPTYMALIZACJA WYDAJNOŚCI - Faza zapisu do DOM
             buttons.forEach(btn => {
                 if (btn === targetBtn) {
                     btn.classList.remove('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
@@ -555,7 +476,6 @@
                 pill.style.opacity = '1';
                 pill.style.width = targetMetrics.offsetWidth + 'px';
                 pill.style.height = targetMetrics.offsetHeight + 'px';
-                // Animacja transform:translate zamiast propercji top/left (szybsze na GPU)
                 pill.style.transform = `translate(${targetMetrics.offsetLeft}px, ${targetMetrics.offsetTop}px)`;
             } else {
                 pill.style.opacity = '0';
@@ -589,7 +509,6 @@
             }
 
             const maxScale = 8300000; 
-            // Zmiana logiki paska postępu do działania z transform: scaleX()
             const scaleFactor = Math.min(pixels / maxScale, 1);
 
             let className = "", verdict = "";
@@ -614,7 +533,6 @@
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     resultPanel.classList.remove('opacity-0');
-                    // OPTYMALIZACJA WYDAJNOŚCI - użyto transform: scaleX zamiast zmiany szerokości
                     setTimeout(() => document.getElementById('progressBar').style.transform = `scaleX(${scaleFactor})`, 100);
                 });
             });
