@@ -1,21 +1,13 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./*.html"],
+  content: ["./index.html"],
   darkMode: 'class',
   theme: {
-    extend: {
-      colors: {
-        primary: { 400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d', 800: '#9d174d' },
-        ai: { 400: '#c084fc', 500: '#a855f7', 600: '#9333ea', 700: '#7e22ce' }
-      },
-      animation: {
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'bounce-slow': 'bounce 2s infinite',
-      },
-      transitionTimingFunction: {
-        'bounce-sm': 'cubic-bezier(0.4, 0, 0.2, 1)',
+      extend: {
+          colors: {
+              primary: { 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e' },
+              ai: { 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6' }
+          },
+          fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] }
       }
-    }
-  },
-  plugins: [],
+  }
 }
