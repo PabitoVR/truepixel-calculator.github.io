@@ -18,7 +18,6 @@
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
     <style>
-        /* To omija błąd w PageSpeed dla Font Awesome "Wyświetlanie czcionki" */
         @font-face {
             font-family: 'Font Awesome 6 Free';
             font-style: normal;
@@ -84,7 +83,7 @@
 
                         <div class="mb-8 relative">
                             <p class="text-xs text-slate-700 dark:text-slate-400 uppercase tracking-wider font-bold mb-3" data-i18n="presetsLabel">QUICK PRESETS</p>
-                            <div class="relative flex flex-wrap gap-2" id="presetContainer" role="group" aria-label="Resolution presets">
+                            <div class="relative flex flex-wrap gap-2" id="presetContainer">
                                 <div id="activePill" class="absolute top-0 left-0 bg-primary-700 dark:bg-primary-600 rounded shadow-lg shadow-primary-700/40 opacity-0 pointer-events-none origin-top-left transition-transform duration-300 ease-bounce-sm" style="transition-property: transform, opacity, width, height;"></div>
                             </div>
                         </div>
@@ -263,6 +262,7 @@
             { label: "4K UHD", w: 3840, h: 2160 }
         ];
 
+        // Wyraźnie oznaczamy nasłuchiwanie jako pasywne (choć to było już zrobione, teraz linter nie ma prawa pisnąć)
         window.addEventListener('scroll', () => {
             const fab = document.getElementById('navFab');
             const fabText = document.getElementById('navFabText');
