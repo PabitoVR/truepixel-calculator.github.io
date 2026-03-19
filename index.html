@@ -14,7 +14,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"></noscript>
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -27,7 +29,6 @@
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-200 selection:bg-primary-700 dark:selection:bg-primary-500 selection:text-white transition-colors duration-300">
 
     <nav class="w-full p-4 lg:p-6 flex flex-col md:flex-row justify-between items-center border-b border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 fixed top-0 z-50 backdrop-blur-md transition-colors duration-300 gap-4 md:gap-0">
-        
         <div class="flex items-center gap-3">
             <i class="fa-solid fa-microchip text-primary-700 dark:text-primary-500 text-2xl" aria-hidden="true"></i>
             <span class="text-xl font-bold tracking-tight dark:text-white text-slate-900">TRUE<span class="text-primary-700 dark:text-primary-500">PIXEL</span></span>
@@ -52,10 +53,8 @@
     </nav>
 
     <main class="relative min-[100dvh] pt-48 md:pt-32">
-
         <div id="view-calculator" class="transition-opacity duration-300">
             <div class="container mx-auto px-4 pb-32 flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-center relative z-10">
-
                 <div class="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-0 flex flex-col h-full justify-between">
                     <div class="glass-panel rounded-2xl p-6 lg:p-8 shadow-2xl shadow-primary-900/10">
                         <h1 class="text-3xl font-extrabold mb-2 dark:text-white text-slate-900" data-i18n="title">Calculate Performance</h1>
@@ -86,7 +85,6 @@
                 </div>
 
                 <div class="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-0 flex flex-col gap-6" aria-live="polite">
-                    
                     <div id="placeholderState" class="flex flex-col items-center justify-center h-[500px] text-slate-600 dark:text-slate-400 border-2 border-dashed border-slate-400 dark:border-slate-700 rounded-2xl">
                         <i class="fa-solid fa-calculator text-4xl mb-4 text-slate-500 dark:text-slate-500" aria-hidden="true"></i>
                         <p class="font-bold" data-i18n="placeholderText">Enter data and press Calculate</p>
@@ -164,7 +162,6 @@
         <div id="view-manifest" class="hidden transition-opacity duration-300 pb-24">
             <div class="container mx-auto px-4 max-w-3xl">
                 <div class="glass-panel rounded-3xl p-8 lg:p-12 shadow-2xl shadow-primary-900/10 relative overflow-hidden">
-                    
                     <div class="absolute top-0 right-0 w-64 h-64 bg-primary-700/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
                     <div class="absolute bottom-0 left-0 w-64 h-64 bg-ai-700/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
 
@@ -179,16 +176,13 @@
                         <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">Author: <strong class="text-slate-900 dark:text-white">Jakub Pabisz</strong></p>
                         <p class="text-xs text-slate-600 dark:text-slate-400 mt-1 font-medium" data-i18n="authorTagline"></p>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </main>
 
     <footer class="text-center py-8 text-slate-700 dark:text-slate-400 text-sm border-t border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm flex flex-col items-center gap-4 font-medium">
         <p>&copy; 2026 TruePixel. Created by <span class="font-bold text-primary-700 dark:text-primary-500">Jakub Pabisz</span>.</p>
-        
         <div class="flex items-center gap-2 px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-300 rounded-full text-xs font-bold border border-slate-400 dark:border-slate-600 cursor-default min-h-[48px]">
             <i class="fa-solid fa-mug-hot" aria-hidden="true"></i>
             <span data-i18n="coffeeComingSoon">Ko-Fi.com donations coming soon</span>
@@ -282,15 +276,12 @@
                     isFabAtTop = true;
                     fab.classList.remove('bottom-8');
                     fab.classList.add('top-24'); 
-                    
                     fabText.innerText = t.navBack;
                     fabIcon.className = "fa-solid fa-arrow-up text-lg";
-                    
                     fab.onclick = () => {
                         fab.classList.add('opacity-0');
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     };
-                    
                     fab.classList.remove('opacity-0', 'scale-75');
                     isTransitioning = false;
                 }, 300); 
@@ -302,16 +293,13 @@
                     isFabAtTop = false;
                     fab.classList.remove('top-24');
                     fab.classList.add('bottom-8');
-                    
                     fabText.innerText = t.navAsk;
                     fabIcon.className = "fa-solid fa-arrow-down text-lg";
-                    
                     fab.onclick = () => {
                         fab.classList.add('opacity-0');
                         const aiSection = document.getElementById('aiSection');
                         aiSection.scrollIntoView({ behavior: 'smooth' });
                     };
-
                     fab.classList.remove('opacity-0', 'scale-75');
                     isTransitioning = false;
                 }, 300);
@@ -327,10 +315,8 @@
             if (view === 'calculator') {
                 calcView.classList.remove('hidden');
                 manView.classList.add('hidden');
-                
                 fab.style.display = 'flex'; 
                 setTimeout(() => fab.classList.remove('opacity-0', 'translate-y-10'), 100);
-                
                 document.getElementById('tab-calculator').classList.add('active');
                 document.getElementById('tab-calculator').classList.remove('inactive');
                 document.getElementById('tab-manifest').classList.add('inactive');
@@ -338,10 +324,8 @@
             } else {
                 calcView.classList.add('hidden');
                 manView.classList.remove('hidden');
-                
                 fab.classList.add('opacity-0', 'translate-y-10');
                 setTimeout(() => fab.style.display = 'none', 300); 
-                
                 document.getElementById('tab-manifest').classList.add('active');
                 document.getElementById('tab-manifest').classList.remove('inactive');
                 document.getElementById('tab-calculator').classList.add('inactive');
@@ -352,7 +336,6 @@
         function init() {
             const userLang = navigator.language || navigator.userLanguage; 
             if (userLang.startsWith('pl')) currentLang = 'pl';
-            
             if (localStorage.getItem('theme')) currentTheme = localStorage.getItem('theme');
             else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) currentTheme = 'light';
             
@@ -407,7 +390,6 @@
             const svg = currentLang === 'en' ? flags.en : flags.pl;
             const text = currentLang === 'en' ? 'EN' : 'PL';
             langBtn.innerHTML = `${svg} <span>${text}</span>`;
-            
             document.documentElement.lang = currentLang;
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -446,31 +428,34 @@
             if (presetUpdateScheduled) return;
             presetUpdateScheduled = true;
 
-            requestAnimationFrame(() => {
-                const currentW = parseInt(document.getElementById('widthInput').value);
-                const currentH = parseInt(document.getElementById('heightInput').value);
-                const pill = document.getElementById('activePill');
-                const buttons = document.querySelectorAll('.preset-btn');
-                
-                let targetMetrics = null;
-                let targetBtn = null;
-                
-                buttons.forEach(btn => {
-                    const btnW = parseInt(btn.dataset.w);
-                    const btnH = parseInt(btn.dataset.h);
-                    if (btnW === currentW && btnH === currentH) {
-                        targetBtn = btn;
-                        targetMetrics = {
-                            offsetLeft: btn.offsetLeft,
-                            offsetTop: btn.offsetTop,
-                            offsetWidth: btn.offsetWidth,
-                            offsetHeight: btn.offsetHeight
-                        };
-                    }
-                });
+            // Faza ODCZYTU DOM (Read) - zapobiega wymuszonym reflow
+            const currentW = parseInt(document.getElementById('widthInput').value);
+            const currentH = parseInt(document.getElementById('heightInput').value);
+            const buttons = document.querySelectorAll('.preset-btn');
+            
+            let targetMetrics = null;
+            let targetIndex = -1;
+            
+            buttons.forEach((btn, idx) => {
+                const btnW = parseInt(btn.dataset.w);
+                const btnH = parseInt(btn.dataset.h);
+                if (btnW === currentW && btnH === currentH) {
+                    targetIndex = idx;
+                    targetMetrics = {
+                        left: btn.offsetLeft,
+                        top: btn.offsetTop,
+                        width: btn.offsetWidth,
+                        height: btn.offsetHeight
+                    };
+                }
+            });
 
-                buttons.forEach(btn => {
-                    if (btn === targetBtn) {
+            // Faza ZAPISU DOM (Write) w kolejnej ramce rysowania
+            requestAnimationFrame(() => {
+                const pill = document.getElementById('activePill');
+                
+                buttons.forEach((btn, idx) => {
+                    if (idx === targetIndex) {
                         btn.classList.remove('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
                         btn.classList.add('text-white');
                     } else {
@@ -481,9 +466,9 @@
 
                 if (targetMetrics) {
                     pill.style.opacity = '1';
-                    pill.style.width = targetMetrics.offsetWidth + 'px';
-                    pill.style.height = targetMetrics.offsetHeight + 'px';
-                    pill.style.transform = `translate(${targetMetrics.offsetLeft}px, ${targetMetrics.offsetTop}px)`;
+                    pill.style.width = targetMetrics.width + 'px';
+                    pill.style.height = targetMetrics.height + 'px';
+                    pill.style.transform = `translate(${targetMetrics.left}px, ${targetMetrics.top}px)`;
                 } else {
                     pill.style.opacity = '0';
                 }
