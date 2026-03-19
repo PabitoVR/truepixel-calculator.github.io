@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="pl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="TruePixel Calculator - Sprawdź rzeczywiste obciążenie karty graficznej (GPU) dla różnych rozdzielczości ekranu.">
+    <meta name="description" content="TruePixel Calculator - Oblicz rzeczywiste obciążenie karty graficznej.">
     <meta name="theme-color" content="#0f172a">
     
     <title>TruePixel Calculator</title>
@@ -42,6 +42,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
+        /* Usunięto import z Google Fonts, bo jest teraz w <head> */
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.3s, color 0.3s;
@@ -476,7 +477,6 @@
             const text = currentLang === 'en' ? 'EN' : 'PL';
             langBtn.innerHTML = `${svg} <span>${text}</span>`;
             
-            // SEO & A11y: Dynamiczny update tagu html lang
             document.documentElement.lang = currentLang;
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -583,9 +583,14 @@
             document.getElementById('placeholderState').classList.add('hidden');
             const resultPanel = document.getElementById('resultPanel');
             resultPanel.classList.remove('hidden');
-            void resultPanel.offsetWidth;
-            resultPanel.classList.remove('opacity-0');
-            setTimeout(() => document.getElementById('progressBar').style.width = `${barWidth}%`, 100);
+            
+            // NAPRAWA: Zamiast wymuszonego "void resultPanel.offsetWidth", używamy klatek animacji
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    resultPanel.classList.remove('opacity-0');
+                    setTimeout(() => document.getElementById('progressBar').style.width = `${barWidth}%`, 100);
+                });
+            });
         }
 
         async function askGemini() {
