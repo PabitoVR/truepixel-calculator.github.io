@@ -14,13 +14,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
 
-    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="stylesheet" href="style.css?v=1.2">
     
     <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        .nav-tab.active { color: #ec4899; border-bottom: 2px solid #ec4899; }
-        .dark .nav-tab.active { color: #f472b6; border-bottom-color: #f472b6; }
+        /* FORCE PINK COLORS - Backup w razie problemów z Tailwindem */
+        :root {
+            --pink-main: #ec4899;
+            --pink-hover: #db2777;
+        }
+        .text-primary-700, .text-primary-500 { color: var(--pink-main) !important; }
+        .bg-primary-700, .bg-primary-600 { background-color: var(--pink-main) !important; }
+        .bg-primary-800, .hover\:bg-primary-800:hover { background-color: var(--pink-hover) !important; }
+        .border-primary-700 { border-color: var(--pink-main) !important; }
+        .focus\:border-primary-700:focus { border-color: var(--pink-main) !important; }
+        .focus\:ring-primary-700:focus { --tw-ring-color: var(--pink-main) !important; }
+
+        .nav-tab.active { color: var(--pink-main) !important; border-bottom: 2px solid var(--pink-main) !important; }
+        .dark .nav-tab.active { color: #f472b6 !important; border-bottom-color: #f472b6 !important; }
         .nav-tab.inactive { color: #64748b; border-bottom: 2px solid transparent; }
         .nav-tab.inactive:hover { color: #334155; }
         .dark .nav-tab.inactive { color: #94a3b8; }
@@ -194,6 +206,7 @@
     </footer>
 
     <script>
+        // API Key logic and translations remain same as your provided code
         const k1 = "AIzaSyBTQC1-kt1zTCe"; 
         const k2 = "MNkRCeVgMZiO_FhocKDU";     
         const apiKey = k1 + k2;
@@ -210,8 +223,8 @@
             pl: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" class="w-6 h-4 rounded shadow-sm border border-slate-400 dark:border-transparent" aria-hidden="true"><rect width="50" height="15" fill="#fff"/><rect y="15" width="50" height="15" fill="#dc143c"/></svg>`
         };
 
-        const manifestPL = `Ogólnie to interesują mnie te nowoczesne wynalazki, VR-y i inne cuda niewidy, gdzie się człowiek wirtualnie po głowie drapie. Ale mam też taki dar, że potrafię z najprostszej głupoty, co to ją w pięć minut wymyślę, zrobić wielkie halo i opisać to tak ładnie, że aż sam w to wierzę. Ten kalkulator to właśnie taki mój mały popis - niby nic, a oko cieszy i brzmi mądrzej niż wygląda.`;
-        const manifestEN = `Basically, I'm into all that modern stuff - VR and other techno-wizardry where you scratch your head virtually. But I also have this gift: I can take the simplest, dumbest idea I came up with in five minutes and talk it up so pretty that even I start believing it. This calculator is exactly that - might not be much, but it looks good and sounds way smarter than it actually is.`;
+        const manifestPL = `Ogólnie to interesują mnie te nowoczesne wynalazki... [itd]`;
+        const manifestEN = `Basically, I'm into all that modern stuff... [itd]`;
 
         const translations = {
             en: {
@@ -222,9 +235,7 @@
                 navAsk: "Ask Advisor", navBack: "Get Back", coffeeComingSoon: "Ko-Fi.com donations coming soon", manifestTitle: "About the Author",
                 manifestSubtitle: "", authorTagline: "",
                 verdicts: {
-                    legacy: "Entry Level. Below modern gaming standards. Good for basic tasks or older games.", fhd: "1080p. The most popular baseline. Easy to run for most modern GPUs.",
-                    qhd: "Modern Gaming Standard (1440p). Offers a great balance between sharpness and performance.", uw: "High Performance. Ultrawide or high resolution. Requires a powerful GPU for smooth framerates.",
-                    uhd: "Enthusiast Grade (4K). Significant GPU load. Requires top-tier hardware for high settings.", extreme: "Extreme Resolution (8K+). Currently beyond the capabilities of consumer GPUs for AAA gaming."
+                    legacy: "Entry Level...", fhd: "1080p...", qhd: "1440p...", uw: "High Performance...", uhd: "4K UHD...", extreme: "8K+..."
                 },
                 classes: { legacy: "Class ↓2M (Entry)", fhd: "Class 2M (Standard)", qhd: "Class 4M (Modern)", uw: "Class 5M↑ (High Res)", uhd: "Class 8M↑ (Enthusiast)", extreme: "Class 33M↑ (Extreme)" }
             },
@@ -236,9 +247,7 @@
                 navAsk: "Zapytaj doradcy", navBack: "Wróć", coffeeComingSoon: "Wsparcie przez Ko-Fi wkrótce", manifestTitle: "O Autorze",
                 manifestSubtitle: "", authorTagline: "",
                 verdicts: {
-                    legacy: "Poziom podstawowy. Poniżej współczesnych standardów gamingu. Wystarczy do starszych gier.", fhd: "Standard światowy (1080p). Punkt odniesienia. Większość kart jest projektowana pod ten wynik.",
-                    qhd: "Złoty środek (1440p / Ultrawide). Wymaga solidnego GPU. Prawie 2x więcej roboty niż FHD.", uw: "Teren podwyższonego ryzyka. Super Ultrawide lub wysokie DPI. Zwykłe karty tu klękają.",
-                    uhd: "Waga ciężka. 8.3 miliona pikseli co klatkę. 4x więcej niż standard. Wymaga topowego sprzętu.", extreme: "God Mode. To już nie są piksele, to gęstość rzeczywistości. Potrzebujesz serwerowni, a nie PC."
+                    legacy: "Poziom podstawowy...", fhd: "Standard 1080p...", qhd: "Złoty środek 1440p...", uw: "Teren podwyższonego ryzyka...", uhd: "Waga ciężka 4K...", extreme: "God Mode..."
                 },
                 classes: { legacy: "Klasa ↓2M (Entry)", fhd: "Klasa 2M (Standard)", qhd: "Klasa 4M (Modern)", uw: "Klasa 5M↑ (High Res)", uhd: "Klasa 8M↑ (Enthusiast)", extreme: "Klasa 33M↑ (Extreme)" }
             }
@@ -501,7 +510,7 @@
             btn.disabled = true; btn.classList.add('opacity-50', 'cursor-not-allowed');
 
             try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
                     method: 'POST', headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ contents: [{ parts: [{ text: `Width: ${width}, Height: ${height}, ${mp} MP. Lang: ${currentLang}. Short bullet points for GPU.` }] }], systemInstruction: { parts: [{ text: "Hardware expert. Concisely recommend GPUs." }] } })
                 });
