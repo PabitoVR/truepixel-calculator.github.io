@@ -3,7 +3,7 @@ name: Skompiluj Tailwind CSS
 on:
   push:
     branches:
-      - main # Zmień na 'master', jeśli tak nazywa się Twoja główna gałąź
+      - main # Zmień na 'master', jeśli Twoja gałąź tak się nazywa
 
 jobs:
   build:
@@ -20,9 +20,8 @@ jobs:
         with:
           node-version: '18'
 
-      # Od razu pobieramy i kompilujemy w jednym kroku
       - name: Kompilacja CSS
-        run: npx --yes tailwindcss -i ./input.css -o ./style.css --minify
+        run: npx --yes tailwindcss@latest -i ./input.css -o ./style.css --minify
 
       - name: Zapisz wygenerowany plik na GitHubie
         uses: stefanzweifel/git-auto-commit-action@v4
