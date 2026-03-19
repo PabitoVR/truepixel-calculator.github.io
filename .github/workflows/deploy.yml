@@ -30,7 +30,7 @@ jobs:
 
       - name: Kompilacja Tailwind CSS
         # To ta sama komenda, którą wpisałbyś na swoim komputerze
-        run: npx tailwindcss -i ./input.css -o ./style.css --minify
+        run: npx -y tailwindcss@latest -i ./input.css -o ./style.css --minify
 
       - name: Konfiguracja GitHub Pages
         uses: actions/configure-pages@v4
