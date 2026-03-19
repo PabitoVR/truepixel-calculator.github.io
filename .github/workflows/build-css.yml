@@ -1,9 +1,10 @@
-name: Skompiluj Tailwind CSS
+name: Tailwind CSS Build
 
 on:
   push:
     branches:
-      - main # Zmień na 'master', jeśli Twoja gałąź tak się nazywa
+      - main
+      - master
 
 jobs:
   build:
@@ -12,19 +13,22 @@ jobs:
       contents: write
 
     steps:
-      - name: Pobierz repozytorium
-        uses: actions/checkout@v3
+      - name: Pobierz pliki z repozytorium
+        uses: actions/checkout@v4
 
-      - name: Uruchom Node.js
-        uses: actions/setup-node@v3
+      - name: Przygotuj srodowisko Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
-      - name: Kompilacja CSS
-        run: npx --yes tailwindcss@latest -i ./input.css -o ./style.css --minify
+      - name: Zainstaluj i skompiluj Tailwinda
+        run: |
+          npm init -y
+          npm install tailwindcss@3
+          npx tailwindcss -i ./input.css -o ./style.css --minify
 
-      - name: Zapisz wygenerowany plik na GitHubie
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Wrzuc wygenerowany style.css na GitHuba
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Automatyczna kompilacja Tailwind CSS"
+          commit_message: "Automatyczna kompilacja style.css"
           file_pattern: "style.css"
