@@ -12,7 +12,9 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"></noscript>
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
@@ -146,10 +148,10 @@
                             </div>
                         </div>
 
-                        <div class="mb-8">
+                        <div class="mb-8 relative">
                             <p class="text-xs text-slate-700 dark:text-slate-400 uppercase tracking-wider font-bold mb-3" data-i18n="presetsLabel">QUICK PRESETS</p>
                             <div class="relative flex flex-wrap gap-2" id="presetContainer" role="group" aria-label="Resolution presets">
-                                <div id="activePill" class="absolute h-full top-0 left-0 bg-primary-700 dark:bg-primary-600 rounded shadow-lg shadow-primary-700/40 transition-all duration-300 ease-bounce-sm opacity-0 -z-0 pointer-events-none"></div>
+                                <div id="activePill" class="absolute top-0 left-0 bg-primary-700 dark:bg-primary-600 rounded shadow-lg shadow-primary-700/40 opacity-0 pointer-events-none origin-top-left transition-transform duration-300 ease-bounce-sm" style="transition-property: transform, opacity, width, height;"></div>
                             </div>
                         </div>
 
@@ -184,7 +186,7 @@
                                 </div>
                                 <div class="w-full h-3 bg-slate-300 dark:bg-slate-700 rounded-full overflow-hidden relative">
                                     <div class="absolute left-[100%] top-0 bottom-0 w-px bg-slate-500/50 dark:bg-slate-400/50 z-10" title="4K (8.3MP)"></div>
-                                    <div id="progressBar" class="h-full bg-gradient-to-r from-primary-700 to-primary-800 dark:from-primary-500 dark:to-primary-600 transition-all duration-1000 ease-out" style="width: 0%"></div>
+                                    <div id="progressBar" class="h-full w-full bg-gradient-to-r from-primary-700 to-primary-800 dark:from-primary-500 dark:to-primary-600 transition-transform duration-1000 ease-out origin-left" style="transform: scaleX(0)"></div>
                                 </div>
                             </div>
                         </div>
@@ -287,7 +289,7 @@
                 tabCalc: "Calculator", tabWhy: "About Me", title: "Calculate Performance", subtitle: "Forget \"upscaling\". See how much your GPU actually calculates.",
                 widthLabel: "WIDTH (PX)", heightLabel: "HEIGHT (PX)", presetsLabel: "QUICK PRESETS", calcButton: "CALCULATE MP", loadLabel: "GPU LOAD",
                 vsFhdLabel: "Vs FHD (1080p):", verdictTitle: "Verdict", placeholderText: "Enter data and press Calculate", pixels: "pixels", load: "load vs FHD",
-                aiTitle: "AI Hardware Advisor", aiSubtitle: "Get GPU recommendations.", aiButtonText: "Ask AI (Currently I'm broke and I cannot afford this feature to work lol)",
+                aiTitle: "AI Hardware Advisor", aiSubtitle: "Get GPU recommendations.", aiButtonText: "Ask AI",
                 navAsk: "Ask Advisor", navBack: "Get Back", coffeeComingSoon: "Ko-Fi.com donations coming soon", manifestTitle: "About the Author",
                 manifestSubtitle: "", authorTagline: "",
                 verdicts: {
@@ -301,7 +303,7 @@
                 tabCalc: "Kalkulator", tabWhy: "O Autorze", title: "Oblicz Wydajność", subtitle: "Zapomnij o \"upskalowaniu\". Sprawdź, ile naprawdę musi liczyć Twoja karta.",
                 widthLabel: "SZEROKOŚĆ (PX)", heightLabel: "WYSOKOŚĆ (PX)", presetsLabel: "SZYBKIE WYBORY", calcButton: "PRZELICZ NA MP", loadLabel: "OBCIĄŻENIE GPU",
                 vsFhdLabel: "Względem FHD (1080p):", verdictTitle: "Werdykt", placeholderText: "Wprowadź dane i naciśnij Przelicz", pixels: "pikseli", load: "obciążenia vs FHD",
-                aiTitle: "Doradca Sprzętowy AI", aiSubtitle: "Sprawdź rekomendacje GPU.", aiButtonText: "Zapytaj AI (Chwilowo nie działa, nie stać mnie na opłaty lol)",
+                aiTitle: "Doradca Sprzętowy AI", aiSubtitle: "Sprawdź rekomendacje GPU.", aiButtonText: "Zapytaj AI",
                 navAsk: "Zapytaj doradcy", navBack: "Wróć", coffeeComingSoon: "Wsparcie przez Ko-Fi wkrótce", manifestTitle: "O Autorze",
                 manifestSubtitle: "", authorTagline: "",
                 verdicts: {
@@ -519,18 +521,28 @@
             const currentH = parseInt(document.getElementById('heightInput').value);
             const pill = document.getElementById('activePill');
             const buttons = document.querySelectorAll('.preset-btn');
-            let foundMatch = false;
-
+            
+            // OPTYMALIZACJA WYDAJNOŚCI - Faza odczytu z DOM (zapobiega Forced Reflow)
+            let targetMetrics = null;
+            let targetBtn = null;
+            
             buttons.forEach(btn => {
                 const btnW = parseInt(btn.dataset.w);
                 const btnH = parseInt(btn.dataset.h);
                 if (btnW === currentW && btnH === currentH) {
-                    foundMatch = true;
-                    pill.style.opacity = '1';
-                    pill.style.left = btn.offsetLeft + 'px';
-                    pill.style.top = btn.offsetTop + 'px';
-                    pill.style.width = btn.offsetWidth + 'px';
-                    pill.style.height = btn.offsetHeight + 'px';
+                    targetBtn = btn;
+                    targetMetrics = {
+                        offsetLeft: btn.offsetLeft,
+                        offsetTop: btn.offsetTop,
+                        offsetWidth: btn.offsetWidth,
+                        offsetHeight: btn.offsetHeight
+                    };
+                }
+            });
+
+            // OPTYMALIZACJA WYDAJNOŚCI - Faza zapisu do DOM
+            buttons.forEach(btn => {
+                if (btn === targetBtn) {
                     btn.classList.remove('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
                     btn.classList.add('text-white');
                 } else {
@@ -538,7 +550,16 @@
                     btn.classList.add('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
                 }
             });
-            if (!foundMatch) pill.style.opacity = '0';
+
+            if (targetMetrics) {
+                pill.style.opacity = '1';
+                pill.style.width = targetMetrics.offsetWidth + 'px';
+                pill.style.height = targetMetrics.offsetHeight + 'px';
+                // Animacja transform:translate zamiast propercji top/left (szybsze na GPU)
+                pill.style.transform = `translate(${targetMetrics.offsetLeft}px, ${targetMetrics.offsetTop}px)`;
+            } else {
+                pill.style.opacity = '0';
+            }
         }
 
         function calculateMP() {
@@ -568,7 +589,8 @@
             }
 
             const maxScale = 8300000; 
-            const barWidth = Math.min((pixels / maxScale) * 100, 100);
+            // Zmiana logiki paska postępu do działania z transform: scaleX()
+            const scaleFactor = Math.min(pixels / maxScale, 1);
 
             let className = "", verdict = "";
             if (megapixels < 1.5) { className = t.classes.legacy; verdict = t.verdicts.legacy; }
@@ -592,7 +614,8 @@
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     resultPanel.classList.remove('opacity-0');
-                    setTimeout(() => document.getElementById('progressBar').style.width = `${barWidth}%`, 100);
+                    // OPTYMALIZACJA WYDAJNOŚCI - użyto transform: scaleX zamiast zmiany szerokości
+                    setTimeout(() => document.getElementById('progressBar').style.transform = `scaleX(${scaleFactor})`, 100);
                 });
             });
         }
