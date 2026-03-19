@@ -4,7 +4,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // To są Twoje różowe kolory
         primary: {
           400: '#f472b6',
           500: '#ec4899',
