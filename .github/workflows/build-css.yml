@@ -20,11 +20,9 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Instalacja Tailwinda
-        run: npm install -D tailwindcss
-
+      # Od razu pobieramy i kompilujemy w jednym kroku
       - name: Kompilacja CSS
-        run: npx tailwindcss -i ./input.css -o ./style.css --minify
+        run: npx --yes tailwindcss -i ./input.css -o ./style.css --minify
 
       - name: Zapisz wygenerowany plik na GitHubie
         uses: stefanzweifel/git-auto-commit-action@v4
