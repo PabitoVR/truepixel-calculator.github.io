@@ -450,47 +450,56 @@
             calculateMP();
         }
         
+        let presetUpdateScheduled = false;
+
         function updatePresetUIState() {
-            const currentW = parseInt(document.getElementById('widthInput').value);
-            const currentH = parseInt(document.getElementById('heightInput').value);
-            const pill = document.getElementById('activePill');
-            const buttons = document.querySelectorAll('.preset-btn');
-            
-            let targetMetrics = null;
-            let targetBtn = null;
-            
-            buttons.forEach(btn => {
-                const btnW = parseInt(btn.dataset.w);
-                const btnH = parseInt(btn.dataset.h);
-                if (btnW === currentW && btnH === currentH) {
-                    targetBtn = btn;
-                    targetMetrics = {
-                        offsetLeft: btn.offsetLeft,
-                        offsetTop: btn.offsetTop,
-                        offsetWidth: btn.offsetWidth,
-                        offsetHeight: btn.offsetHeight
-                    };
-                }
-            });
+            if (presetUpdateScheduled) return;
+            presetUpdateScheduled = true;
 
-            buttons.forEach(btn => {
-                if (btn === targetBtn) {
-                    btn.classList.remove('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
-                    btn.classList.add('text-white');
+            requestAnimationFrame(() => {
+                const currentW = parseInt(document.getElementById('widthInput').value);
+                const currentH = parseInt(document.getElementById('heightInput').value);
+                const pill = document.getElementById('activePill');
+                const buttons = document.querySelectorAll('.preset-btn');
+                
+                let targetMetrics = null;
+                let targetBtn = null;
+                
+                buttons.forEach(btn => {
+                    const btnW = parseInt(btn.dataset.w);
+                    const btnH = parseInt(btn.dataset.h);
+                    if (btnW === currentW && btnH === currentH) {
+                        targetBtn = btn;
+                        targetMetrics = {
+                            offsetLeft: btn.offsetLeft,
+                            offsetTop: btn.offsetTop,
+                            offsetWidth: btn.offsetWidth,
+                            offsetHeight: btn.offsetHeight
+                        };
+                    }
+                });
+
+                buttons.forEach(btn => {
+                    if (btn === targetBtn) {
+                        btn.classList.remove('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
+                        btn.classList.add('text-white');
+                    } else {
+                        btn.classList.remove('text-white');
+                        btn.classList.add('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
+                    }
+                });
+
+                if (targetMetrics) {
+                    pill.style.opacity = '1';
+                    pill.style.width = targetMetrics.offsetWidth + 'px';
+                    pill.style.height = targetMetrics.offsetHeight + 'px';
+                    pill.style.transform = `translate(${targetMetrics.offsetLeft}px, ${targetMetrics.offsetTop}px)`;
                 } else {
-                    btn.classList.remove('text-white');
-                    btn.classList.add('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
+                    pill.style.opacity = '0';
                 }
+                
+                presetUpdateScheduled = false;
             });
-
-            if (targetMetrics) {
-                pill.style.opacity = '1';
-                pill.style.width = targetMetrics.offsetWidth + 'px';
-                pill.style.height = targetMetrics.offsetHeight + 'px';
-                pill.style.transform = `translate(${targetMetrics.offsetLeft}px, ${targetMetrics.offsetTop}px)`;
-            } else {
-                pill.style.opacity = '0';
-            }
         }
 
         function calculateMP() {
