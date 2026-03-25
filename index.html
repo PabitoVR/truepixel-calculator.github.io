@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="TruePixel Calculator - Oblicz rzeczywiste obciążenie karty graficznej względem 1080p.">
-    <meta name="theme-color" content="#171717">
+    <meta name="theme-color" content="#0f172a">
     
     <title>TruePixel Calculator</title>
     
-    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMxNzE3MTciLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI2VjNDg5OSIvPjxwYXRoIGQ9Ik0zMiA0djEyTTMyIDQ4djEyTTQgMzJoMTJNNDggMzJoMTIiIHN0cm9rZT0iI2VjNDg5OSIgc3Ryb2tlLXdpZHRoPSI2Ii8+PC9zdmc+">
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiMwZjE3MmEiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI2VjNDg5OSIvPjxwYXRoIGQ9Ik0zMiA0djEyTTMyIDQ4djEyTTQgMzJoMTJNNDggMzJoMTIiIHN0cm9rZT0iI2VjNDg5OSIgc3Ryb2tlLXdpZHRoPSI2Ii8+PC9zdmc+">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,36 +19,73 @@
     <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        /* FORCE PINK COLORS - Mocny kontrast */
-        :root {
-            --pink-main: #ec4899;
-            --pink-hover: #db2777;
-        }
-        .text-primary-700, .text-primary-500 { color: var(--pink-main) !important; }
-        .bg-primary-700, .bg-primary-600 { background-color: var(--pink-main) !important; }
-        .bg-primary-800, .hover\:bg-primary-800:hover { background-color: var(--pink-hover) !important; }
-        .border-primary-700 { border-color: var(--pink-main) !important; }
-        .focus\:border-primary-700:focus { border-color: var(--pink-main) !important; }
-        .focus\:ring-primary-700:focus { --tw-ring-color: var(--pink-main) !important; }
+    :root {
+        --primary-50: #fdf2f8;
+        --primary-100: #fce7f3;
+        --primary-200: #fbcfe8;
+        --primary-300: #f9a8d4;
+        --primary-400: #f472b6;
+        --primary-500: #ec4899;
+        --primary-600: #db2777;
+        --primary-700: #be185d;
+        --primary-800: #9d174d;
+        --primary-900: #831843;
 
-        .nav-tab.active { color: var(--pink-main) !important; border-bottom: 2px solid var(--pink-main) !important; }
-        .dark .nav-tab.active { color: #f472b6 !important; border-bottom-color: #f472b6 !important; }
-        
-        /* Zastąpiono niebieskawe hex'y na czyste neutralne szarości dla lepszego kontrastu */
-        .nav-tab.inactive { color: #737373; border-bottom: 2px solid transparent; }
-        .nav-tab.inactive:hover { color: #404040; }
-        .dark .nav-tab.inactive { color: #a3a3a3; }
-        .dark .nav-tab.inactive:hover { color: #e5e5e5; }
-        .glass-panel { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); }
-        .dark .glass-panel { background: rgba(23, 23, 23, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(64, 64, 64, 0.5); }
+        --text-on-primary: #ffffff;
+    }
+
+    .text-primary-700 { color: var(--primary-700); }
+    .text-primary-500 { color: var(--primary-500); }
+
+    .bg-primary-700 { background-color: var(--primary-700); color: var(--text-on-primary); }
+    .bg-primary-600 { background-color: var(--primary-600); color: var(--text-on-primary); }
+    .bg-primary-800 { background-color: var(--primary-800); color: var(--text-on-primary); }
+
+    .hover\:bg-primary-800:hover { background-color: var(--primary-800); }
+
+    .border-primary-700 { border-color: var(--primary-700); }
+
+    .focus\:border-primary-700:focus { border-color: var(--primary-600); }
+    .focus\:ring-primary-700:focus { 
+        --tw-ring-color: rgba(236, 72, 153, 0.4);
+    }
+
+    .nav-tab.active {
+        color: var(--primary-600);
+        border-bottom: 2px solid var(--primary-600);
+    }
+
+    .dark .nav-tab.active {
+        color: var(--primary-400);
+        border-bottom-color: var(--primary-400);
+    }
+
+    .bg-gradient-to-r.from-primary-700 {
+        background-image: linear-gradient(to right, var(--primary-700), var(--primary-600));
+    }
+
+    .dark .bg-gradient-to-r.from-primary-500 {
+        background-image: linear-gradient(to right, var(--primary-500), var(--primary-400));
+    }
+
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .dark .glass-panel {
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+    }
     </style>
 </head>
-<body class="bg-neutral-50 text-neutral-900 dark:bg-neutral-950 dark:text-neutral-200 transition-colors duration-300">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300">
 
-    <nav class="w-full p-4 lg:p-6 flex flex-col md:flex-row justify-between items-center border-b border-neutral-300 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 fixed top-0 z-50 backdrop-blur-md transition-colors duration-300 gap-4 md:gap-0">
+    <nav class="w-full p-4 lg:p-6 flex flex-col md:flex-row justify-between items-center border-b border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 fixed top-0 z-50 backdrop-blur-md transition-colors duration-300 gap-4 md:gap-0">
         <div class="flex items-center gap-3">
             <svg class="w-7 h-7 text-primary-700 dark:text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
-            <span class="text-xl font-bold tracking-tight dark:text-white text-neutral-900">TRUE<span class="text-primary-700 dark:text-primary-500">PIXEL</span></span>
+            <span class="text-xl font-bold tracking-tight dark:text-white text-slate-900">TRUE<span class="text-primary-700 dark:text-primary-500">PIXEL</span></span>
         </div>
 
         <div class="flex items-center gap-8">
@@ -63,8 +100,8 @@
         </div>
         
         <div class="flex items-center gap-4">
-            <button id="langToggle" onclick="toggleLanguage()" aria-label="Toggle language" class="flex items-center gap-2 text-sm font-bold px-4 py-2 min-h-[48px] rounded-full border border-neutral-400 dark:border-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition text-neutral-900 dark:text-neutral-200"></button>
-            <button onclick="toggleTheme()" aria-label="Toggle dark mode" class="w-12 h-12 rounded-full flex items-center justify-center bg-neutral-200 dark:bg-neutral-800 text-neutral-900 dark:text-yellow-400 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition" id="themeBtn">
+            <button id="langToggle" onclick="toggleLanguage()" aria-label="Toggle language" class="flex items-center gap-2 text-sm font-bold px-4 py-2 min-h-[48px] rounded-full border border-slate-400 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-800 transition text-slate-900 dark:text-slate-200"></button>
+            <button onclick="toggleTheme()" aria-label="Toggle dark mode" class="w-12 h-12 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-yellow-400 hover:bg-slate-300 dark:hover:bg-slate-700 transition" id="themeBtn">
                 </button>
         </div>
     </nav>
@@ -74,22 +111,22 @@
             <div class="container mx-auto px-4 pb-32 flex flex-col lg:flex-row gap-8 lg:gap-12 items-start justify-center relative z-10">
                 <div class="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-0 flex flex-col h-full justify-between">
                     <div class="glass-panel rounded-2xl p-6 lg:p-8 shadow-2xl shadow-primary-900/10">
-                        <h1 class="text-3xl font-extrabold mb-2 dark:text-white text-neutral-900" data-i18n="title">Calculate Performance</h1>
-                        <p class="text-neutral-700 dark:text-neutral-300 mb-8 font-medium" data-i18n="subtitle">Forget "4K". See how much your GPU actually calculates.</p>
+                        <h1 class="text-3xl font-extrabold mb-2 dark:text-white text-slate-900" data-i18n="title">Calculate Performance</h1>
+                        <p class="text-slate-700 dark:text-slate-300 mb-8 font-medium" data-i18n="subtitle">Forget "4K". See how much your GPU actually calculates.</p>
 
                         <div class="grid grid-cols-2 gap-6 mb-8">
                             <div>
-                                <label for="widthInput" class="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-2 font-mono uppercase" data-i18n="widthLabel">WIDTH (PX)</label>
-                                <input type="number" id="widthInput" value="2560" class="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-400 dark:border-neutral-600 rounded-lg px-4 py-3 text-neutral-900 dark:text-white focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700 transition font-mono text-lg font-bold min-h-[48px]">
+                                <label for="widthInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 font-mono uppercase" data-i18n="widthLabel">WIDTH (PX)</label>
+                                <input type="number" id="widthInput" value="2560" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-400 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700 transition font-mono text-lg font-bold min-h-[48px]">
                             </div>
                             <div>
-                                <label for="heightInput" class="block text-xs font-bold text-neutral-700 dark:text-neutral-300 mb-2 font-mono uppercase" data-i18n="heightLabel">HEIGHT (PX)</label>
-                                <input type="number" id="heightInput" value="1440" class="w-full bg-neutral-50 dark:bg-neutral-800 border border-neutral-400 dark:border-neutral-600 rounded-lg px-4 py-3 text-neutral-900 dark:text-white focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700 transition font-mono text-lg font-bold min-h-[48px]">
+                                <label for="heightInput" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2 font-mono uppercase" data-i18n="heightLabel">HEIGHT (PX)</label>
+                                <input type="number" id="heightInput" value="1440" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-400 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary-700 focus:ring-1 focus:ring-primary-700 transition font-mono text-lg font-bold min-h-[48px]">
                             </div>
                         </div>
 
                         <div class="mb-8 relative">
-                            <p class="text-xs text-neutral-700 dark:text-neutral-400 uppercase tracking-wider font-bold mb-3" data-i18n="presetsLabel">QUICK PRESETS</p>
+                            <p class="text-xs text-slate-700 dark:text-slate-400 uppercase tracking-wider font-bold mb-3" data-i18n="presetsLabel">QUICK PRESETS</p>
                             <div class="relative flex flex-wrap gap-2" id="presetContainer">
                                 <div id="activePill" class="absolute top-0 left-0 bg-primary-700 dark:bg-primary-600 rounded shadow-lg shadow-primary-700/40 opacity-0 pointer-events-none origin-top-left transition-transform duration-300" style="transition-property: transform, opacity, width, height;"></div>
                             </div>
@@ -102,8 +139,8 @@
                 </div>
 
                 <div class="w-full lg:w-1/2 max-w-xl mx-auto lg:mx-0 flex flex-col gap-6" aria-live="polite">
-                    <div id="placeholderState" class="flex flex-col items-center justify-center h-[500px] text-neutral-600 dark:text-neutral-400 border-2 border-dashed border-neutral-400 dark:border-neutral-700 rounded-2xl">
-                        <svg class="w-16 h-16 mb-4 text-neutral-400 dark:text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <div id="placeholderState" class="flex flex-col items-center justify-center h-[500px] text-slate-600 dark:text-slate-400 border-2 border-dashed border-slate-400 dark:border-slate-700 rounded-2xl">
+                        <svg class="w-16 h-16 mb-4 text-slate-400 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         <p class="font-bold" data-i18n="placeholderText">Enter data and press Calculate</p>
                     </div>
 
@@ -111,67 +148,67 @@
                         <div class="glass-panel rounded-2xl p-6 lg:p-8 border-primary-700/30 relative overflow-hidden flex-1">
                             <div class="absolute top-0 right-0 w-48 h-48 bg-primary-700/10 dark:bg-primary-500/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
                             
-                            <h2 class="text-neutral-700 dark:text-neutral-400 text-xs font-bold tracking-widest uppercase mb-1" data-i18n="loadLabel">GPU LOAD</h2>
+                            <h2 class="text-slate-700 dark:text-slate-400 text-xs font-bold tracking-widest uppercase mb-1" data-i18n="loadLabel">GPU LOAD</h2>
                             <div class="flex items-baseline gap-2">
-                                <span id="mpValue" class="text-6xl font-extrabold text-neutral-900 dark:text-white tracking-tighter"></span>
+                                <span id="mpValue" class="text-6xl font-extrabold text-slate-900 dark:text-white tracking-tighter"></span>
                                 <span class="text-2xl font-bold text-primary-700 dark:text-primary-500">MP</span>
                             </div>
-                            <p id="className" class="text-xl mt-2 font-bold text-neutral-800 dark:text-neutral-200"></p>
+                            <p id="className" class="text-xl mt-2 font-bold text-slate-800 dark:text-slate-200"></p>
                             
-                            <div class="mt-6 pt-6 border-t border-neutral-300 dark:border-neutral-700/50">
+                            <div class="mt-6 pt-6 border-t border-slate-300 dark:border-slate-700/50">
                                 <div class="flex justify-between text-sm mb-2">
-                                    <span class="text-neutral-700 dark:text-neutral-300 font-semibold" data-i18n="vsFhdLabel">Vs FHD (1080p):</span>
+                                    <span class="text-slate-700 dark:text-slate-300 font-semibold" data-i18n="vsFhdLabel">Vs FHD (1080p):</span>
                                     <span id="percentageDiff" class="font-bold text-emerald-700 dark:text-emerald-400"></span>
                                 </div>
-                                <div class="w-full h-3 bg-neutral-300 dark:bg-neutral-700 rounded-full overflow-hidden relative">
-                                    <div class="absolute left-[100%] top-0 bottom-0 w-px bg-neutral-500/50 dark:bg-neutral-400/50 z-10" title="4K (8.3MP)"></div>
+                                <div class="w-full h-3 bg-slate-300 dark:bg-slate-700 rounded-full overflow-hidden relative">
+                                    <div class="absolute left-[100%] top-0 bottom-0 w-px bg-slate-500/50 dark:bg-slate-400/50 z-10" title="4K (8.3MP)"></div>
                                     <div id="progressBar" class="h-full w-full bg-gradient-to-r from-primary-700 to-primary-800 dark:from-primary-500 dark:to-primary-600 transition-transform duration-1000 ease-out origin-left" style="transform: scaleX(0)"></div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="glass-panel rounded-2xl p-6 flex-1">
-                            <h3 class="font-bold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
+                            <h3 class="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-primary-700 dark:text-primary-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
                                 <span data-i18n="verdictTitle">Verdict</span>
                             </h3>
-                            <p id="verdictText" class="text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed text-sm"></p>
+                            <p id="verdictText" class="text-slate-800 dark:text-slate-200 font-medium leading-relaxed text-sm"></p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="bottomFade" class="fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-neutral-50 dark:from-neutral-950 to-transparent pointer-events-none z-20 transition-opacity duration-500"></div>
+            <div id="bottomFade" class="fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-50 dark:from-slate-950 to-transparent pointer-events-none z-20 transition-opacity duration-500"></div>
 
-            <button id="navFab" aria-label="Quick navigation" class="fixed left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 min-h-[48px] bg-neutral-900 dark:bg-neutral-800 text-white dark:text-primary-400 rounded-full shadow-2xl shadow-primary-900/40 border border-neutral-700 dark:border-primary-500/30 flex items-center justify-center gap-3 cursor-pointer hover:scale-105 transition-all duration-300 bottom-8">
+            <button id="navFab" aria-label="Quick navigation" class="fixed left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 min-h-[48px] bg-slate-900 dark:bg-slate-800 text-white dark:text-primary-400 rounded-full shadow-2xl shadow-primary-900/40 border border-slate-700 dark:border-primary-500/30 flex items-center justify-center gap-3 cursor-pointer hover:scale-105 transition-all duration-300 bottom-8">
                 <span id="navFabText" class="font-bold text-sm tracking-wide">Ask Advisor</span>
                 <span id="navFabIconContainer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                 </span>
             </button>
 
-            <div id="aiSection" class="w-full relative bg-neutral-100 dark:bg-neutral-900 border-t border-neutral-300 dark:border-neutral-800 pt-24 pb-24 z-0">
+            <div id="aiSection" class="w-full relative bg-slate-100 dark:bg-slate-900 border-t border-slate-300 dark:border-slate-800 pt-24 pb-24 z-0">
                 <div class="container mx-auto px-4 max-w-4xl relative z-10">
                     <div class="text-center mb-10">
-                        <h3 class="text-3xl font-extrabold text-neutral-900 dark:text-white mb-3 flex items-center justify-center gap-3">
-                            <svg class="w-8 h-8 text-primary-700 dark:text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                        <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-3 flex items-center justify-center gap-3">
+                            <svg class="w-8 h-8 text-ai-700 dark:text-ai-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                             <span data-i18n="aiTitle">AI Hardware Advisor</span>
                         </h3>
-                        <p class="text-neutral-700 dark:text-neutral-300 font-medium" data-i18n="aiSubtitle">Ask Gemini which specific GPUs are recommended for this load.</p>
+                        <p class="text-slate-700 dark:text-slate-300 font-medium" data-i18n="aiSubtitle">Ask Gemini which specific GPUs are recommended for this load.</p>
                     </div>
 
-                    <div class="glass-panel rounded-2xl p-8 border-primary-700/30 shadow-2xl shadow-primary-700/10 max-w-2xl mx-auto">
-                        <button onclick="askGemini()" id="aiButton" aria-label="Ask AI for Recommendations" class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-primary-700 to-primary-900 hover:from-primary-800 hover:to-primary-950 dark:from-primary-600 dark:to-primary-800 text-white font-bold py-4 rounded-xl transition-all duration-300 group shadow-lg shadow-primary-700/20 min-h-[48px]">
+                    <div class="glass-panel rounded-2xl p-8 border-ai-700/30 shadow-2xl shadow-ai-700/10 max-w-2xl mx-auto">
+                        <button onclick="askGemini()" id="aiButton" aria-label="Ask AI for Recommendations" class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-ai-700 to-purple-800 hover:from-ai-800 hover:to-purple-900 dark:from-ai-600 dark:to-purple-700 text-white font-bold py-4 rounded-xl transition-all duration-300 group shadow-lg shadow-ai-700/20 min-h-[48px]">
                             <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             <span data-i18n="aiButtonText">Ask AI for GPU Recommendations</span>
                         </button>
 
-                        <div id="aiResult" class="hidden mt-6 pt-6 border-t border-neutral-300 dark:border-neutral-700/50" aria-live="polite">
-                            <div id="aiLoading" class="hidden flex flex-col items-center justify-center gap-3 py-6 text-primary-700 dark:text-primary-400">
+                        <div id="aiResult" class="hidden mt-6 pt-6 border-t border-slate-300 dark:border-slate-700/50" aria-live="polite">
+                            <div id="aiLoading" class="hidden flex flex-col items-center justify-center gap-3 py-6 text-ai-700 dark:text-ai-400">
                                 <svg class="w-8 h-8 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                                 <span class="text-sm font-bold animate-pulse">Analyzing pixel density & VRAM requirements...</span>
                             </div>
-                            <div id="aiContent" class="text-sm lg:text-base text-neutral-800 dark:text-neutral-200 leading-relaxed font-medium"></div>
+                            <div id="aiContent" class="text-sm lg:text-base text-slate-800 dark:text-slate-200 leading-relaxed font-medium"></div>
                         </div>
                     </div>
                 </div>
@@ -182,32 +219,33 @@
             <div class="container mx-auto px-4 max-w-3xl">
                 <div class="glass-panel rounded-3xl p-8 lg:p-12 shadow-2xl shadow-primary-900/10 relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-primary-700/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
-                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-700/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-ai-700/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
 
-                    <h1 class="text-4xl lg:text-5xl font-extrabold mb-2 dark:text-white text-neutral-900 tracking-tight" data-i18n="manifestTitle">O Autorze</h1>
+                    <h1 class="text-4xl lg:text-5xl font-extrabold mb-2 dark:text-white text-slate-900 tracking-tight" data-i18n="manifestTitle">O Autorze</h1>
                     <p class="text-xl text-primary-700 dark:text-primary-400 font-bold mb-10" data-i18n="manifestSubtitle"></p>
                     
-                    <div class="prose dark:prose-invert prose-neutral lg:prose-lg max-w-none text-neutral-800 dark:text-neutral-200">
+                    <div class="prose dark:prose-invert prose-slate lg:prose-lg max-w-none text-slate-800 dark:text-slate-200">
                         <div data-i18n-html="manifestContent"></div>
                     </div>
                     
-                    <div class="mt-12 pt-8 border-t border-neutral-300 dark:border-neutral-800 text-center">
-                        <p class="text-sm text-neutral-700 dark:text-neutral-300 font-medium">Author: <strong class="text-neutral-900 dark:text-white">Jakub Pabisz</strong></p>
+                    <div class="mt-12 pt-8 border-t border-slate-300 dark:border-slate-800 text-center">
+                        <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">Author: <strong class="text-slate-900 dark:text-white">Jakub Pabisz</strong></p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="text-center py-8 text-neutral-700 dark:text-neutral-400 text-sm border-t border-neutral-300 dark:border-neutral-800 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-sm flex flex-col items-center gap-4 font-medium">
+    <footer class="text-center py-8 text-slate-700 dark:text-slate-400 text-sm border-t border-slate-300 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm flex flex-col items-center gap-4 font-medium">
         <p>&copy; 2026 TruePixel. Created by <span class="font-bold text-primary-700 dark:text-primary-500">Jakub Pabisz</span>.</p>
-        <div class="flex items-center gap-2 px-4 py-2 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-300 rounded-full text-xs font-bold border border-neutral-400 dark:border-neutral-600 cursor-default min-h-[48px]">
+        <div class="flex items-center gap-2 px-4 py-2 bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-300 rounded-full text-xs font-bold border border-slate-400 dark:border-slate-600 cursor-default min-h-[48px]">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             <span data-i18n="coffeeComingSoon">Ko-Fi.com donations coming soon</span>
         </div>
     </footer>
 
     <script>
+        // API Key logic and translations remain same as your provided code
         const k1 = "AIzaSyBTQC1-kt1zTCe"; 
         const k2 = "MNkRCeVgMZiO_FhocKDU";     
         const apiKey = k1 + k2;
@@ -221,7 +259,7 @@
 
         const flags = {
             en: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" class="w-6 h-4 rounded shadow-sm" aria-hidden="true"><rect width="50" height="30" fill="#b22234"/><path d="M0,4.6h50M0,9.2h50M0,13.8h50M0,18.5h50M0,23.1h50" stroke="#fff" stroke-width="2.3"/><rect width="20" height="16" fill="#3c3b6e"/><path d="M2,2l2,2M6,2l-2,2M10,2l2,2M14,2l-2,2M18,2l2,2" stroke="#fff" stroke-width="1" stroke-linecap="round"/></svg>`,
-            pl: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" class="w-6 h-4 rounded shadow-sm border border-neutral-400 dark:border-transparent" aria-hidden="true"><rect width="50" height="15" fill="#fff"/><rect y="15" width="50" height="15" fill="#dc143c"/></svg>`
+            pl: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 30" class="w-6 h-4 rounded shadow-sm border border-slate-400 dark:border-transparent" aria-hidden="true"><rect width="50" height="15" fill="#fff"/><rect y="15" width="50" height="15" fill="#dc143c"/></svg>`
         };
 
         const manifestPL = `Ogólnie to interesują mnie te nowoczesne wynalazki... [itd]`;
@@ -405,7 +443,7 @@
             const container = document.getElementById('presetContainer');
             presets.forEach((p, index) => {
                 const btn = document.createElement('button');
-                btn.className = `preset-btn relative z-10 px-4 py-2 min-h-[48px] rounded text-sm transition-colors duration-200 font-bold bg-transparent text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50`;
+                btn.className = `preset-btn relative z-10 px-4 py-2 min-h-[48px] rounded text-sm transition-colors duration-200 font-bold bg-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50`;
                 btn.innerText = p.label;
                 btn.dataset.w = p.w; btn.dataset.h = p.h; btn.dataset.index = index;
                 btn.onclick = () => setRes(p.w, p.h);
@@ -440,11 +478,11 @@
                 const pill = document.getElementById('activePill');
                 buttons.forEach((btn, idx) => {
                     if (idx === targetIndex) {
-                        btn.classList.remove('text-neutral-700', 'dark:text-neutral-300', 'hover:bg-neutral-200/50', 'dark:hover:bg-neutral-800/50');
+                        btn.classList.remove('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
                         btn.classList.add('text-white');
                     } else {
                         btn.classList.remove('text-white');
-                        btn.classList.add('text-neutral-700', 'dark:text-neutral-300', 'hover:bg-neutral-200/50', 'dark:hover:bg-neutral-800/50');
+                        btn.classList.add('text-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200/50', 'dark:hover:bg-slate-800/50');
                     }
                 });
                 if (targetMetrics) {
