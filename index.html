@@ -97,6 +97,47 @@
     border: 1px solid var(--border-color-strong);
     background-color: var(--surface-color);
 }
+.dark body {
+    background-color: #0d0f1a !important; 
+    color: #f1f5f9 !important;
+}
+
+.dark .bg-slate-950,
+.dark .bg-slate-900,
+.dark .bg-slate-900\/90,
+.dark .bg-slate-800,
+.dark .dark\:bg-slate-950,
+.dark .dark\:bg-slate-900,
+.dark .dark\:bg-slate-800 {
+    background-color: #0d0f1a !important;
+}
+
+.dark .glass-panel,
+.dark .card,
+.dark .panel {
+    background: rgba(20, 25, 40, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    backdrop-filter: blur(12px);
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+    background-color: #1a1f2d !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    color: #f1f5f9 !important;
+}
+
+.dark .text-primary-700 { color: var(--primary-400) !important; }
+.dark .text-primary-500 { color: var(--primary-300) !important; }
+
+.dark .bg-primary-700 { background-color: var(--primary-700) !important; }
+.dark .bg-primary-600 { background-color: var(--primary-600) !important; }
+.dark .bg-primary-800 { background-color: var(--primary-800) !important; }
+
+.dark .bg-gradient-to-r.from-primary-500 {
+    background-image: linear-gradient(to right, var(--primary-500), var(--primary-400)) !important;
+}
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300">
