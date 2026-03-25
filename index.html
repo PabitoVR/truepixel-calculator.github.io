@@ -138,6 +138,41 @@
 .dark .bg-gradient-to-r.from-primary-500 {
     background-image: linear-gradient(to right, var(--primary-500), var(--primary-400)) !important;
 }
+body:not(.dark) {
+    background-color: #e5e7eb !important;
+    color: #1e293b !important;
+}
+
+body:not(.dark) .bg-white,
+body:not(.dark) .bg-white\/90,
+body:not(.dark) .bg-slate-50,
+body:not(.dark) .bg-slate-100,
+body:not(.dark) .bg-slate-200 {
+    background-color: #f1f2f4 !important;
+}
+
+body:not(.dark) .glass-panel,
+body:not(.dark) .card,
+body:not(.dark) .panel {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    backdrop-filter: blur(12px);
+}
+
+body:not(.dark) input,
+body:not(.dark) textarea,
+body:not(.dark) select {
+    background-color: #f8fafc !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    color: #1e293b !important;
+}
+
+body:not(.dark) .text-primary-700 { color: var(--primary-700) !important; }
+body:not(.dark) .text-primary-500 { color: var(--primary-500) !important; }
+
+body:not(.dark) .bg-primary-700 { background-color: var(--primary-700) !important; }
+body:not(.dark) .bg-primary-600 { background-color: var(--primary-600) !important; }
+body:not(.dark) .bg-primary-800 { background-color: var(--primary-800) !important; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300">
