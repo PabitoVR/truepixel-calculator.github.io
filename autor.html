@@ -38,7 +38,6 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  perspective:1200px;
 }
 .card{
   width:85%;
@@ -55,7 +54,6 @@ body{
   justify-content:center;
   position:absolute;
   transition:all 0.7s cubic-bezier(.2,.8,.2,1);
-  transform-style:preserve-3d;
   z-index:1;
 }
 .hidden{opacity:0;transform:translateY(120px) scale(0.9);pointer-events:none}
@@ -106,6 +104,12 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
 .anime{position:absolute;width:130px;opacity:0.75;filter:drop-shadow(0 0 10px #ffb0e0)}
 .a1{top:-25px;right:-25px}
 .a2{bottom:-25px;left:-25px}
+
+@media (max-width:768px){
+  .card{padding:30px;height:auto;position:relative;}
+  .anime{position:relative;top:auto;right:auto;bottom:auto;left:auto;margin:15px 0;width:80px;}
+  .btn{min-width:160px;padding:14px 22px;font-size:1rem;}
+}
 </style>
 </head>
 <body>
@@ -153,7 +157,6 @@ let current=0;
 const cards=document.querySelectorAll('.card');
 const upBtn=document.getElementById('upBtn');
 const downBtn=document.getElementById('downBtn');
-const container=document.getElementById('container');
 function updateButtons(){
   upBtn.classList.toggle('hiddenBtn', current===0);
   downBtn.classList.toggle('hiddenBtn', current===cards.length-1);
@@ -169,31 +172,25 @@ function scrollCard(dir){
 }
 updateButtons();
 
-function applyParallax(x,y){
-  cards[current].style.transform=`translateY(0) rotateX(${-y}deg) rotateY(${x}deg)`;
-  const bx=x*0.5;
-  const by=y*0.5;
-  if(!upBtn.classList.contains('hiddenBtn')) upBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
-  if(!downBtn.classList.contains('hiddenBtn')) downBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
-}
+// Desktop mouse parallax only
+if(window.innerWidth>768){
+  const container=document.getElementById('container');
+  function applyParallax(x,y){
+    cards[current].style.transform=`translateY(0) rotateX(${-y}deg) rotateY(${x}deg)`;
+    const bx=x*0.5;
+    const by=y*0.5;
+    if(!upBtn.classList.contains('hiddenBtn')) upBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
+    if(!downBtn.classList.contains('hiddenBtn')) downBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
+  }
 
-container.addEventListener('mousemove', e=>{
-  const x=(e.clientX/window.innerWidth-0.5)*18;
-  const y=(e.clientY/window.innerHeight-0.5)*18;
-  applyParallax(x,y);
-});
-
-container.addEventListener('mouseleave', ()=>{
-  applyParallax(0,0);
-});
-
-// Gyroscope for mobile
-if(window.DeviceOrientationEvent){
-  window.addEventListener('deviceorientation', e=>{
-    const x = e.gamma/45*10; // left/right tilt
-    const y = e.beta/45*10;  // forward/back tilt
+  container.addEventListener('mousemove', e=>{
+    const x=(e.clientX/window.innerWidth-0.5)*18;
+    const y=(e.clientY/window.innerHeight-0.5)*18;
     applyParallax(x,y);
-  }, true);
+  });
+  container.addEventListener('mouseleave', ()=>{
+    applyParallax(0,0);
+  });
 }
 
 window.addEventListener('keydown', e=>{
