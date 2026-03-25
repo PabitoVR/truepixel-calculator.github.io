@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Author</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
@@ -15,7 +15,6 @@
   --pink-strong:#ff7ed8;
   --text:#f8f8f8;
 }
-
 @media (prefers-color-scheme: light){
   :root{
     --bg:#f6f6fb;
@@ -24,9 +23,7 @@
     --text:#111;
   }
 }
-
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",system-ui}
-
 body{
   background:
     radial-gradient(circle at 20% 30%, #ffb0e033, transparent 40%),
@@ -36,7 +33,6 @@ body{
   height:100vh;
   overflow:hidden;
 }
-
 .container{
   height:100vh;
   display:flex;
@@ -44,7 +40,6 @@ body{
   justify-content:center;
   perspective:1200px;
 }
-
 .card{
   width:85%;
   max-width:950px;
@@ -63,10 +58,8 @@ body{
   transform-style:preserve-3d;
   z-index:1;
 }
-
 .hidden{opacity:0;transform:translateY(120px) scale(0.9);pointer-events:none}
 .visible{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
-
 h1{
   font-size:3rem;
   margin-bottom:20px;
@@ -74,9 +67,7 @@ h1{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-
 p{font-size:1.2rem;line-height:1.8;max-width:750px}
-
 .profile{
   width:140px;height:140px;border-radius:50%;
   border:3px solid var(--pink);
@@ -84,7 +75,6 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
   background:url('https://i.imgur.com/0Q6U1Zf.jpeg') center/cover no-repeat;
   box-shadow:0 0 30px #ffb0e0aa;
 }
-
 .btn{
   position:fixed;
   left:50%;
@@ -104,43 +94,15 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
   min-width:200px;
   z-index:10;
 }
-
 .btn:hover{transform:translateX(-50%) scale(1.1);box-shadow:0 0 70px #ffb0e0}
 .btn:active{transform:translateX(-50%) scale(0.95)}
-
 .up{top:calc(15% - 30px)}
 .down{bottom:calc(15% - 30px)}
-
-.back{
-  position:fixed;
-  top:20px;left:20px;
-  transform:none;
-  min-width:auto;
-  padding:12px 16px;
-  text-decoration:none;
-  z-index:20;
-}
-
+.back{position:fixed;top:20px;left:20px;transform:none;min-width:auto;padding:12px 16px;text-decoration:none;z-index:20}
 .hiddenBtn{opacity:0;pointer-events:none}
-
-.contact{
-  margin-top:25px;
-  display:inline-flex;align-items:center;gap:10px;
-  padding:14px 24px;
-  border-radius:20px;
-  background:linear-gradient(90deg,#ffb0e0,#ff7ed8);
-  color:white;text-decoration:none;
-  box-shadow:0 0 30px #ff7ed8aa;
-  transition:0.3s;
-  font-size:1.05rem;
-}
+.contact{margin-top:25px;display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:20px;background:linear-gradient(90deg,#ffb0e0,#ff7ed8);color:white;text-decoration:none;box-shadow:0 0 30px #ff7ed8aa;transition:0.3s;font-size:1.05rem}
 .contact:hover{transform:scale(1.1)}
-
-.footer{
-  position:absolute;bottom:10px;width:100%;text-align:center;
-  font-size:0.7rem;opacity:0.6;
-}
-
+.footer{position:absolute;bottom:10px;width:100%;text-align:center;font-size:0.7rem;opacity:0.6}
 .anime{position:absolute;width:130px;opacity:0.75;filter:drop-shadow(0 0 10px #ffb0e0)}
 .a1{top:-25px;right:-25px}
 .a2{bottom:-25px;left:-25px}
@@ -148,83 +110,42 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
 </head>
 <body>
 
-<a href="index.html" class="btn back">
-  <i class="fa-solid fa-arrow-left"></i>
-</a>
-
-<button id="upBtn" class="btn up hiddenBtn" onclick="scrollCard(-1)">
-  <i class="fa-solid fa-chevron-up"></i>
-  Poprzednia sekcja
-</button>
-
-<button id="downBtn" class="btn down" onclick="scrollCard(1)">
-  Następna sekcja
-  <i class="fa-solid fa-chevron-down"></i>
-</button>
-
+<a href="index.html" class="btn back"><i class="fa-solid fa-arrow-left"></i></a>
+<button id="upBtn" class="btn up hiddenBtn" onclick="scrollCard(-1)"><i class="fa-solid fa-chevron-up"></i> Poprzednia sekcja</button>
+<button id="downBtn" class="btn down" onclick="scrollCard(1)">Następna sekcja <i class="fa-solid fa-chevron-down"></i></button>
 <div class="container" id="container">
 
-<!-- 1 -->
 <div class="card visible">
   <img src="https://i.imgur.com/T9QWZjw.png" class="anime a1">
   <div class="profile" id="profile-pic"></div>
   <h1>Jakub Pabisz</h1>
-  <p>
-    VR, komputery i wszystko co małe, mobilne i dopracowane.
-    Lubię rzeczy, które mieszczą się w dłoni, ale robią więcej niż powinny.
-    Mini setupy, handheldy, ciche buildy i systemy smart home potrafią mnie wciągnąć na długie godziny.
-    Szukam balansu między estetyką a funkcjonalnością.
-  </p>
+  <p>VR, komputery i wszystko co małe, mobilne i dopracowane. Lubię rzeczy, które mieszczą się w dłoni, ale robią więcej niż powinny. Mini setupy, handheldy, ciche buildy i systemy smart home potrafią mnie wciągnąć na długie godziny. Szukam balansu między estetyką a funkcjonalnością.</p>
 </div>
 
-<!-- 2 -->
 <div class="card hidden">
   <img src="https://i.imgur.com/mvGrQ9b.png" class="anime a2">
-  <p>
-    Kiedy robi się nudno, zaczynam eksperymentować.
-    Overclocking GPU, testowanie granic sprzętu i wyciąganie maksimum z tego, co już mam.
-    Albo coś bardziej kreatywnego — własne spolszczenia do gier.
-    Lubię moment, kiedy coś zaczyna działać lepiej niż powinno.
-  </p>
+  <p>Kiedy robi się nudno, zaczynam eksperymentować. Overclocking GPU, testowanie granic sprzętu i wyciąganie maksimum z tego, co już mam. Albo coś bardziej kreatywnego — własne spolszczenia do gier. Lubię moment, kiedy coś zaczyna działać lepiej niż powinno.</p>
 </div>
 
-<!-- 3 DRONY -->
 <div class="card hidden">
   <img src="https://i.imgur.com/qxusyno.png" class="anime a1">
-  <p>
-    Dorabiam sobie jako licencjonowany operator dronów.
-    Lubię ten moment, kiedy wszystko jest stabilne, a obraz z góry układa się dokładnie tak jak trzeba.
-    To trochę technika, trochę wyczucie — i właśnie to mnie w tym wciąga.
-  </p>
+  <p>Dorabiam sobie jako licencjonowany operator dronów. Lubię ten moment, kiedy wszystko jest stabilne, a obraz z góry układa się dokładnie tak jak trzeba. To trochę technika, trochę wyczucie — i właśnie to mnie w tym wciąga.</p>
 </div>
 
-<!-- 4 -->
 <div class="card hidden">
   <img src="https://i.imgur.com/eIvN86d.png" class="anime a2">
-  <p style="margin-top:14px; opacity:0.9;">
-    W wolnym czasie oglądam anime — czasem coś lekkiego, czasem coś cięższego.
-  </p>
-  <p>
-    Kiedy wszystko gaśnie, zostają rzeczy najprostsze.
-    Pianino, gitara, cisza.
-  </p>
+  <p style="margin-top:14px; opacity:0.9;">W wolnym czasie oglądam anime — czasem coś lekkiego, czasem coś cięższego.</p>
+  <p>Kiedy wszystko gaśnie, zostają rzeczy najprostsze. Pianino, gitara, cisza.</p>
 </div>
 
-<!-- 5 KONTAKT -->
 <div class="card hidden">
   <img src="https://r78.cooltext.com/rendered/cooltext504920164284180.gif" class="anime a1">
   <h1>Kontakt</h1>
-  <p>
-    Jeśli chcesz napisać — śmiało.
-    Najprościej przez maila.
-  </p>
-  <a class="contact" href="mailto:pabisz.jakub.tc@edu.zstjaslo.pl">
-    <i class="fa-solid fa-envelope"></i> Napisz do mnie
-  </a>
+  <p>Jeśli chcesz napisać — śmiało. Najprościej przez maila.</p>
+  <a class="contact" href="mailto:pabisz.jakub.tc@edu.zstjaslo.pl"><i class="fa-solid fa-envelope"></i> Napisz do mnie</a>
 </div>
 
 </div>
-
 <div class="footer">pabisz.jakub.tc@edu.zstjaslo.pl</div>
 
 <script>
@@ -233,50 +154,47 @@ const cards=document.querySelectorAll('.card');
 const upBtn=document.getElementById('upBtn');
 const downBtn=document.getElementById('downBtn');
 const container=document.getElementById('container');
-
 function updateButtons(){
   upBtn.classList.toggle('hiddenBtn', current===0);
   downBtn.classList.toggle('hiddenBtn', current===cards.length-1);
 }
-
 function scrollCard(dir){
   if((dir===-1 && current===0) || (dir===1 && current===cards.length-1)) return;
-
   cards[current].classList.remove('visible');
   cards[current].classList.add('hidden');
-
   current+=dir;
-
   cards[current].classList.remove('hidden');
   cards[current].classList.add('visible');
-
   updateButtons();
 }
-
 updateButtons();
+
+function applyParallax(x,y){
+  cards[current].style.transform=`translateY(0) rotateX(${-y}deg) rotateY(${x}deg)`;
+  const bx=x*0.5;
+  const by=y*0.5;
+  if(!upBtn.classList.contains('hiddenBtn')) upBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
+  if(!downBtn.classList.contains('hiddenBtn')) downBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
+}
 
 container.addEventListener('mousemove', e=>{
   const x=(e.clientX/window.innerWidth-0.5)*18;
   const y=(e.clientY/window.innerHeight-0.5)*18;
-
-  cards[current].style.transform=`translateY(0) rotateX(${-y}deg) rotateY(${x}deg)`;
-
-  const bx=x*0.5;
-  const by=y*0.5;
-
-  if(!upBtn.classList.contains('hiddenBtn')){
-    upBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
-  }
-  if(!downBtn.classList.contains('hiddenBtn')){
-    downBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
-  }
+  applyParallax(x,y);
 });
 
 container.addEventListener('mouseleave', ()=>{
-  cards[current].style.transform='translateY(0) rotateX(0) rotateY(0)';
-  upBtn.style.transform='translateX(-50%)';
-  downBtn.style.transform='translateX(-50%)';
+  applyParallax(0,0);
 });
+
+// Gyroscope for mobile
+if(window.DeviceOrientationEvent){
+  window.addEventListener('deviceorientation', e=>{
+    const x = e.gamma/45*10; // left/right tilt
+    const y = e.beta/45*10;  // forward/back tilt
+    applyParallax(x,y);
+  }, true);
+}
 
 window.addEventListener('keydown', e=>{
   if(e.key==='ArrowDown') scrollCard(1);
