@@ -104,7 +104,6 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
 .anime{position:absolute;width:130px;opacity:0.75;filter:drop-shadow(0 0 10px #ffb0e0)}
 .a1{top:-25px;right:-25px}
 .a2{bottom:-25px;left:-25px}
-
 @media (max-width:768px){
   .card{padding:30px;height:auto;position:relative;}
   .anime{position:relative;top:auto;right:auto;bottom:auto;left:auto;margin:15px 0;width:80px;}
@@ -123,29 +122,29 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
   <img src="https://i.imgur.com/T9QWZjw.png" class="anime a1">
   <div class="profile" id="profile-pic"></div>
   <h1>Jakub Pabisz</h1>
-  <p>VR, komputery i wszystko co małe, mobilne i dopracowane. Lubię rzeczy, które mieszczą się w dłoni, ale robią więcej niż powinny. Mini setupy, handheldy, ciche buildy i systemy smart home potrafią mnie wciągnąć na długie godziny. Szukam balansu między estetyką a funkcjonalnością.</p>
+  <p>Zajmuję się VR, komputerami i systemami smart home. Lubię testować nowe technologie, optymalizować sprzęt i poznawać, jak działają różne urządzenia.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://i.imgur.com/mvGrQ9b.png" class="anime a2">
-  <p>Kiedy robi się nudno, zaczynam eksperymentować. Overclocking GPU, testowanie granic sprzętu i wyciąganie maksimum z tego, co już mam. Albo coś bardziej kreatywnego — własne spolszczenia do gier. Lubię moment, kiedy coś zaczyna działać lepiej niż powinno.</p>
+  <p>W wolnym czasie eksperymentuję z technologią: overclocking GPU i tworzenie spolszczeń do gier. To sposób na rozwijanie umiejętności i kreatywne wykorzystanie sprzętu.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://i.imgur.com/qxusyno.png" class="anime a1">
-  <p>Dorabiam sobie jako licencjonowany operator dronów. Lubię ten moment, kiedy wszystko jest stabilne, a obraz z góry układa się dokładnie tak jak trzeba. To trochę technika, trochę wyczucie — i właśnie to mnie w tym wciąga.</p>
+  <p>Dorabiam sobie jako licencjonowany operator dronów. Latanie dronem daje mi satysfakcję i pozwala uchwycić ciekawe ujęcia z powietrza.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://i.imgur.com/eIvN86d.png" class="anime a2">
-  <p style="margin-top:14px; opacity:0.9;">W wolnym czasie oglądam anime — czasem coś lekkiego, czasem coś cięższego.</p>
-  <p>Kiedy wszystko gaśnie, zostają rzeczy najprostsze. Pianino, gitara, cisza.</p>
+  <p>W wolnym czasie oglądam anime — czasem lekkie, czasem z bardziej rozbudowaną fabułą.</p>
+  <p>Kiedy wszystko gaśnie, zostają proste przyjemności: pianino, gitara i cisza.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://r78.cooltext.com/rendered/cooltext504920164284180.gif" class="anime a1">
   <h1>Kontakt</h1>
-  <p>Jeśli chcesz napisać — śmiało. Najprościej przez maila.</p>
+  <p>Najprościej skontaktować się przez maila, jeśli masz ochotę porozmawiać lub zadać pytania.</p>
   <a class="contact" href="mailto:pabisz.jakub.tc@edu.zstjaslo.pl"><i class="fa-solid fa-envelope"></i> Napisz do mnie</a>
 </div>
 
@@ -172,7 +171,6 @@ function scrollCard(dir){
 }
 updateButtons();
 
-// Desktop mouse parallax only
 if(window.innerWidth>768){
   const container=document.getElementById('container');
   function applyParallax(x,y){
