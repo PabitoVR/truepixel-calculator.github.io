@@ -70,7 +70,7 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
   width:140px;height:140px;border-radius:50%;
   border:3px solid var(--pink);
   margin-bottom:25px;
-  background:url('https://i.imgur.com/0Q6U1Zf.jpeg') center/cover no-repeat;
+  background:url('LINKPFP') center/cover no-repeat;
   box-shadow:0 0 30px #ffb0e0aa;
 }
 .btn{
@@ -104,7 +104,6 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
 .anime{position:absolute;width:130px;opacity:0.75;filter:drop-shadow(0 0 10px #ffb0e0)}
 .a1{top:-25px;right:-25px}
 .a2{bottom:-25px;left:-25px}
-
 @media (max-width:768px){
   .card{padding:30px;height:auto;position:relative;}
   .anime{position:relative;top:auto;right:auto;bottom:auto;left:auto;margin:15px 0;width:80px;}
@@ -123,29 +122,29 @@ p{font-size:1.2rem;line-height:1.8;max-width:750px}
   <img src="https://i.imgur.com/T9QWZjw.png" class="anime a1">
   <div class="profile" id="profile-pic"></div>
   <h1>Jakub Pabisz</h1>
-  <p>VR, komputery i wszystko co małe, mobilne i dopracowane. Lubię rzeczy, które mieszczą się w dłoni, ale robią więcej niż powinny. Mini setupy, handheldy, ciche buildy i systemy smart home potrafią mnie wciągnąć na długie godziny. Szukam balansu między estetyką a funkcjonalnością.</p>
+  <p>Interesuję się VR, komputerami przenośnymi i mobilnymi, a także systemami smart home. Lubię małe, funkcjonalne urządzenia i mini setupy, które łączą estetykę z wygodą. Cenię praktyczne rozwiązania i dopracowane detale.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://i.imgur.com/mvGrQ9b.png" class="anime a2">
-  <p>Kiedy robi się nudno, zaczynam eksperymentować. Overclocking GPU, testowanie granic sprzętu i wyciąganie maksimum z tego, co już mam. Albo coś bardziej kreatywnego — własne spolszczenia do gier. Lubię moment, kiedy coś zaczyna działać lepiej niż powinno.</p>
+  <p>Kiedy mam wolny czas, eksperymentuję z overclockingiem GPU i testowaniem sprzętu. Tworzę też własne spolszczenia do gier. To sposób na rozwijanie umiejętności i poznawanie możliwości technologii w praktyce.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://i.imgur.com/qxusyno.png" class="anime a1">
-  <p>Dorabiam sobie jako licencjonowany operator dronów. Lubię ten moment, kiedy wszystko jest stabilne, a obraz z góry układa się dokładnie tak jak trzeba. To trochę technika, trochę wyczucie — i właśnie to mnie w tym wciąga.</p>
+  <p>Dorabiam sobie jako licencjonowany operator dronów. Latanie i uchwycenie obrazu z powietrza wymaga precyzji i skupienia, co bardzo mnie wciąga. To połączenie techniki i wyczucia, które sprawia mi satysfakcję.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://i.imgur.com/eIvN86d.png" class="anime a2">
-  <p style="margin-top:14px; opacity:0.9;">W wolnym czasie oglądam anime — czasem coś lekkiego, czasem coś cięższego.</p>
-  <p>Kiedy wszystko gaśnie, zostają rzeczy najprostsze. Pianino, gitara, cisza.</p>
+  <p style="margin-top:14px; opacity:0.9;">W wolnym czasie oglądam anime — czasem lekkie historie, czasem bardziej rozbudowane fabuły.</p>
+  <p>Kiedy wszystko gaśnie, zostają rzeczy najprostsze: pianino, gitara, cisza.</p>
 </div>
 
 <div class="card hidden">
   <img src="https://r78.cooltext.com/rendered/cooltext504920164284180.gif" class="anime a1">
   <h1>Kontakt</h1>
-  <p>Jeśli chcesz napisać — śmiało. Najprościej przez maila.</p>
+  <p>Jeśli chcesz się skontaktować, najprościej zrobić to przez maila.</p>
   <a class="contact" href="mailto:pabisz.jakub.tc@edu.zstjaslo.pl"><i class="fa-solid fa-envelope"></i> Napisz do mnie</a>
 </div>
 
@@ -172,7 +171,6 @@ function scrollCard(dir){
 }
 updateButtons();
 
-// Desktop mouse parallax only
 if(window.innerWidth>768){
   const container=document.getElementById('container');
   function applyParallax(x,y){
@@ -182,7 +180,6 @@ if(window.innerWidth>768){
     if(!upBtn.classList.contains('hiddenBtn')) upBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
     if(!downBtn.classList.contains('hiddenBtn')) downBtn.style.transform=`translateX(-50%) rotateX(${-by}deg) rotateY(${bx}deg)`;
   }
-
   container.addEventListener('mousemove', e=>{
     const x=(e.clientX/window.innerWidth-0.5)*18;
     const y=(e.clientY/window.innerHeight-0.5)*18;
@@ -191,6 +188,10 @@ if(window.innerWidth>768){
   container.addEventListener('mouseleave', ()=>{
     applyParallax(0,0);
   });
+}
+
+if(/Mobi|Android/i.test(navigator.userAgent)){
+  document.documentElement.style.zoom = '1';
 }
 
 window.addEventListener('keydown', e=>{
